@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @orgalorg7
 - 👀 I’m interested in game game development
-- 🌱 I’m currently learning c++
+- 🌱 I’m currently learning c++ and ARM
 
 
 
