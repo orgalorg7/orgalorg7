@@ -2,6 +2,7 @@
 - 👋 Hi, I’m @orgalorg7
 - 👀 I’m interested in game development
 - 🌱 I’m currently learning c++ and ARM
+
 [![My Skills](https://skillicons.dev/icons?i=js,html,css,wasm)](https://skillicons.dev)
 
 
