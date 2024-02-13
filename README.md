@@ -6,7 +6,7 @@
 <h3 align="center">A passionate software developer & data analyst </h3>
 
 <div align="center">
-- 👀 currently intersted in game development    
+- 👀 currently intersted in game development and ai    
 - 🌱 I’m currently learning advanced c++ and Rust
  </div>
 
