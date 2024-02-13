@@ -9,9 +9,9 @@
 - 🌱 I’m currently learning c++ and ARM
 
 <h2 align="center">⚒️ Languages-Frameworks-Tools ⚒️</h2>
-
+<div align="center">
 [![My Skills](https://skillicons.dev/icons?i=aws,java,kotlin,c,cpp,go,idea,linux,r,vscode)](https://skillicons.dev)
-
+</div>
 
 
 <div align="center"> 
