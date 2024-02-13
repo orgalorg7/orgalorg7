@@ -7,7 +7,7 @@
 
 <div align="center">
 - 👀 currently intersted in game development
-
+    
 - 🌱 I’m currently learning advanced c++ and Rust 
 
  </div>
