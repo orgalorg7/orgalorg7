@@ -5,8 +5,12 @@
 </h1>
 <h3 align="center">A passionate software developer & data analyst </h3>
 
-- 👀 I’m interested in game development
-- 🌱 I’m currently learning c++ and ARM
+<div align="center">
+- 👀 currently intersted in game development
+- 🌱 I’m currently learning advanced c++ and Rust
+- 
+
+ </div>
 
 <h2 align="center">⚒️ Languages-Frameworks-Tools ⚒️</h2>
 <div align="center">
