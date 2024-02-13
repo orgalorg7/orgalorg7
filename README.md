@@ -4,7 +4,6 @@
 [![My Skills](https://skillicons.dev/icons?i=aws,java,kotlin,c,cpp,go,idea,linux,r,vscode)](https://skillicons.dev)
 
 
-<img src="{https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white}"/>
 
 
 <!---
