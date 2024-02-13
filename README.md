@@ -3,7 +3,7 @@
 - 👀 I’m interested in game development
 - 🌱 I’m currently learning c++ and ARM
 
-[![My Skills](https://skillicons.dev/icons?i=aws,java,kotlin,wasm)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=aws,java,kotlin,c,cpp,gituhb,go,idea,linux,r,vscode)](https://skillicons.dev)
 
 
 
