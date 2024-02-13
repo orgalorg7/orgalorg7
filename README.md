@@ -1,5 +1,6 @@
 <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Quicksand&weight=600&size=35&pause=1000&color=FF0000&center=true&vCenter=true&random=false&width=435&lines=HI+there+%F0%9F%91%8B;i'm+Nehad++%E2%9C%A8;software+developer+%F0%9F%92%BB;%26;data+analyst+%F0%9F%93%8A" alt="Typing SVG" /></a>
 <h3 align="center">A passionate software developer & data analyst 🇨🇦</h3>
+
 - 👀 I’m interested in game development
 - 🌱 I’m currently learning c++ and ARM
 
