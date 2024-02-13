@@ -34,10 +34,7 @@
 
 
 
-<p align="center">
-  <img  src="https://raw.githubusercontent.com/orgalorg7/orgalorg7/main/resources/img/github-contribution-grid-snake.svg"
-    alt="example" />
-</p>
+
 
 
 <!---
