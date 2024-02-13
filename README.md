@@ -1,7 +1,7 @@
 <img align="right" src="https://visitor-badge.laobi.icu/badge?page_id=salesp07.salesp07" />
 
 <h1 align="center">
-    [![Typing SVG](https://readme-typing-svg.demolab.com?font=Quicksand&weight=600&size=35&pause=1000&color=FF0000&center=true&vCenter=true&random=false&width=435&lines=HI+there+%F0%9F%91%8B;i'm+Nehad+(aka+orgalorg7)++%E2%9C%A8;software+developer+%F0%9F%92%BB;%26;data+analyst+%F0%9F%93%8A)](https://git.io/typing-svg)
+    <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Quicksand&weight=600&size=35&pause=1000&color=FF0000&center=true&vCenter=true&random=false&width=435&lines=HI+there+%F0%9F%91%8B;i'm+Nehad+(aka+orgalorg7)++%E2%9C%A8;software+developer+%F0%9F%92%BB;%26;data+analyst+%F0%9F%93%8A" alt="Typing SVG" /></a>
 </h1>
 <h3 align="center">A passionate software developer & data analyst </h3>
 
