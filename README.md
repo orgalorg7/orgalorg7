@@ -8,6 +8,7 @@
 - 👀 I’m interested in game development
 - 🌱 I’m currently learning c++ and ARM
 
+<h2 align="center">⚒️ Languages-Frameworks-Tools ⚒️</h2>
 [![My Skills](https://skillicons.dev/icons?i=aws,java,kotlin,c,cpp,go,idea,linux,r,vscode)](https://skillicons.dev)
 
 
