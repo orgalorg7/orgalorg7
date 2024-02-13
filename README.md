@@ -11,7 +11,7 @@
 
 🌱 I’m currently learning **advanced c++ and Rust**
 
-👀 currently intersted in game development and ai
+👀 currently intersted in **game development and ai**
 
 ⚡ Fun fact **Psycho was the first movie to show a toilet flushing**
 
