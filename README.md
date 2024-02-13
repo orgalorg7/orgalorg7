@@ -11,7 +11,12 @@
 [![My Skills](https://skillicons.dev/icons?i=aws,java,kotlin,c,cpp,go,idea,linux,r,vscode)](https://skillicons.dev)
 
 
-
+<div align="center"> 
+  </a>
+  <a href="https://www.linkedin.com/in/mohammed-nehad-moghrabi-9ba988248/" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank" />
+  </a>
+</div>
 
 <!---
 orgalorg7/orgalorg7 is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
