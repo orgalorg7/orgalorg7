@@ -12,6 +12,7 @@
 [![My Skills](https://skillicons.dev/icons?i=aws,java,kotlin,c,cpp,go,idea,linux,r,vscode)](https://skillicons.dev)
 
 
+
 <div align="center"> 
   </a>
   <a href="https://www.linkedin.com/in/mohammed-nehad-moghrabi-9ba988248/" target="_blank">
