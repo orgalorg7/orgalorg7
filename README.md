@@ -6,9 +6,15 @@
 <h3 align="center">A passionate software developer & data analyst </h3>
 
 <div align="center">
-- 👀 currently intersted in game development and ai    
+ 
+♟️ I’m currently working on **chess game in java** 
 
-    - 🌱 I’m currently learning advanced c++ and Rust
+🌱 I’m currently learning **advanced c++ and Rust**
+
+👀 currently intersted in game development and ai
+
+⚡ Fun fact **Psycho was the first movie to show a toilet flushing**
+
  </div>
 
 <h2 align="center">⚒️ Languages-Frameworks-Tools ⚒️</h2>
