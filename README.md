@@ -1,7 +1,9 @@
-## Hi, I’m Nehad <img src = "https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width = 30px> 
-<p>
-  <a href="https://github.com/DenverCoder1/readme-typing-svg"><img src="https://readme-typing-svg.herokuapp.com?&font=IBM+Plex+Sans&color=abcdef&size=30&lines=Welcome+to+my+GitHub+Profile!;I'm+a+software+developer;I'm+also+studying+Computer+science" /></a>
-</p>
+<img align="right" src="https://visitor-badge.laobi.icu/badge?page_id=salesp07.salesp07" />
+
+<h1 align="center">
+    <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Quicksand&weight=600&size=35&pause=1000&color=FF0000&center=true&vCenter=true&random=false&width=435&lines=HI+there+%F0%9F%91%8B;i'm+Nehad+%E2%9C%A8;software+developer+%F0%9F%92%BB;%26;data+analyst+%F0%9F%93%8A" alt="Typing SVG" /></a>
+</h1>
+<h3 align="center">A passionate software developer & data analyst </h3>
 
 
 <div align="center">
