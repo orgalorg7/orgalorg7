@@ -6,7 +6,7 @@
 
 </h1>
 
-<h3 align="center">A passionate software developer & data analyst </h3>
+<h3 align="center">A passionate data scientist & quantitative researcher </h3>
 
 
   </p>
