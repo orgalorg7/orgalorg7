@@ -9,6 +9,7 @@ const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, "..");
 const configPath = path.join(rootDir, "profile.config.json");
 const assetsDir = path.join(rootDir, "assets");
+const portraitPath = path.join(assetsDir, "ascii-portrait.json");
 const desktopSvgPath = path.join(assetsDir, "profile-terminal.svg");
 const mobileSvgPath = path.join(assetsDir, "profile-terminal-mobile.svg");
 const readmePath = path.join(rootDir, "README.md");
@@ -73,6 +74,20 @@ function assertConfig(config) {
 function truncate(value, maxLength) {
   const text = String(value);
   return text.length <= maxLength ? text : `${text.slice(0, maxLength - 1)}…`;
+}
+
+function assertPortrait(portrait) {
+  if (!portrait || !Array.isArray(portrait.palette) || !Array.isArray(portrait.lines)) {
+    throw new Error("ASCII portrait data is malformed");
+  }
+  if (portrait.lines.length !== portrait.rows) {
+    throw new Error("ASCII portrait row count does not match its metadata");
+  }
+  for (const line of portrait.lines) {
+    if (line.chars.length !== portrait.columns || line.colors.length !== portrait.columns) {
+      throw new Error("ASCII portrait line width does not match its metadata");
+    }
+  }
 }
 
 function formatNumber(value) {
@@ -265,7 +280,23 @@ function statRows(stats) {
   return rows;
 }
 
-function renderDesktop(config, stats) {
+function portraitText(portrait, { x, y, fontSize, lineHeight }) {
+  return portrait.lines.map((line, rowIndex) => {
+    const runs = [];
+    let start = 0;
+    while (start < line.chars.length) {
+      const colorKey = line.colors[start];
+      let end = start + 1;
+      while (end < line.chars.length && line.colors[end] === colorKey) end += 1;
+      const color = portrait.palette[Number(colorKey)] ?? palette.secondary;
+      runs.push(`<tspan fill="${escapeXml(color)}">${escapeXml(line.chars.slice(start, end))}</tspan>`);
+      start = end;
+    }
+    return `<text x="${x}" y="${y + rowIndex * lineHeight}" font-size="${fontSize}" xml:space="preserve">${runs.join("")}</text>`;
+  }).join("\n    ");
+}
+
+function renderDesktop(config, stats, portrait) {
   const stackRows = Object.entries(config.stack).map(([label, values]) => ({
     label,
     value: values.join(" · ")
@@ -273,9 +304,7 @@ function renderDesktop(config, stats) {
   const contacts = contactRows(config).slice(0, 3);
   const metrics = statRows(stats).slice(0, 4);
 
-  const ascii = config.terminal.ascii.slice(0, 22).map((line, index) =>
-    `<text x="38" y="${150 + index * 19}" class="primary" font-size="16" opacity=".82" xml:space="preserve">${escapeXml(line)}</text>`
-  ).join("\n    ");
+  const ascii = portraitText(portrait, { x: 30, y: 136, fontSize: 12.5, lineHeight: 13.5 });
 
   const system = systemRows(config).slice(0, 4).map((row, index) => desktopRow({
     ...row,
@@ -360,14 +389,12 @@ function mobileHeading(title, y) {
     <line x1="148" y1="${y - 5}" x2="642" y2="${y - 5}" class="rule"/>`;
 }
 
-function renderMobile(config, stats) {
+function renderMobile(config, stats, portrait) {
   const stackRows = Object.entries(config.stack).map(([label, values]) => ({
     label,
     value: values.join(" · ")
   }));
-  const compactAscii = config.terminal.ascii.slice(0, 22).map((line, index) =>
-    `<text x="150" y="${126 + index * 13.5}" class="primary" font-size="13" opacity=".82" xml:space="preserve">${escapeXml(line)}</text>`
-  ).join("\n    ");
+  const compactAscii = portraitText(portrait, { x: 156, y: 118, fontSize: 10.2, lineHeight: 10.5 });
 
   const system = systemRows(config).slice(0, 4).map((row, index) => mobileRow({
     ...row,
@@ -469,7 +496,9 @@ ${contacts.join(" · ")}
 
 async function main() {
   const config = JSON.parse(await readFile(configPath, "utf8"));
+  const portrait = JSON.parse(await readFile(portraitPath, "utf8"));
   assertConfig(config);
+  assertPortrait(portrait);
 
   let stats = { ...config.statsFallback };
   let liveStatsAvailable = false;
@@ -497,8 +526,8 @@ async function main() {
 
   await mkdir(assetsDir, { recursive: true });
   await Promise.all([
-    writeFile(desktopSvgPath, renderDesktop(config, stats), "utf8"),
-    writeFile(mobileSvgPath, renderMobile(config, stats), "utf8"),
+    writeFile(desktopSvgPath, renderDesktop(config, stats, portrait), "utf8"),
+    writeFile(mobileSvgPath, renderMobile(config, stats, portrait), "utf8"),
     writeFile(readmePath, renderReadme(config), "utf8")
   ]);
 
