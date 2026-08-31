@@ -1,0 +1,67 @@
+{
+  "profile": {
+    "name": "Mohammed Nehad",
+    "username": "orgalorg7",
+    "role": "Independent software engineer",
+    "location": "Cairo, Egypt",
+    "statement": "I design dependable backends, thoughtful interfaces, and geospatial systems."
+  },
+  "terminal": {
+    "title": "profile.sh",
+    "path": "~/orgalorg7/profile",
+    "command": "./profile --verbose",
+    "ascii": [
+      "       · · · ───────────────────── · · ·",
+      "    ╭─────────────────────────────────╮",
+      "    │       [ PROFILE CORE / 07 ]     │",
+      "    │                                 │",
+      "    │  ███╗   ███╗  ███╗   ██╗       │",
+      "    │  ████╗ ████║  ████╗  ██║       │",
+      "    │  ██╔████╔██║  ██╔██╗ ██║       │",
+      "    │  ██║╚██╔╝██║  ██║╚██╗██║       │",
+      "    │  ██║ ╚═╝ ██║  ██║ ╚████║       │",
+      "    │  ╚═╝     ╚═╝  ╚═╝  ╚═══╝       │",
+      "    │                                 │",
+      "    ├──────────────┬──────────────────┤",
+      "    │   backend    │   geospatial     │",
+      "    ├──────────────┴──────────────────┤",
+      "    │       interfaces / APIs         │",
+      "    ╰─────────────────────────────────╯",
+      "       · · · ───────────────────── · · ·",
+      "                 ready_"
+    ]
+  },
+  "system": [
+    { "label": "Practice", "value": "Product engineering" },
+    { "label": "Mode", "value": "Architecture before ornament" }
+  ],
+  "stack": {
+    "Languages": ["Go", "TypeScript", "Python"],
+    "Domains": ["APIs", "Maps", "Realtime"],
+    "Workflow": ["Git", "GitHub"]
+  },
+  "currently": [
+    { "label": "Building", "value": "Geospatial data workflows" },
+    { "label": "Refining", "value": "Domain boundaries & Go API contracts" },
+    { "label": "Focus", "value": "Maps, data & product interfaces" }
+  ],
+  "contact": {
+    "github": true,
+    "email": "",
+    "linkedin": "",
+    "website": ""
+  },
+  "projects": [],
+  "statsFallback": {
+    "repositories": 7,
+    "followers": 11,
+    "stars": 0,
+    "commits": 180,
+    "contributions": null
+  },
+  "_help": {
+    "contact": "Set github to true to derive it from profile.username. Leave optional contact values empty to hide them.",
+    "projects": "Add objects shaped like: { name, description, url, tech: [\"Go\", \"PostgreSQL\"] }. Empty means the section is omitted.",
+    "statsFallback": "Used only for local/offline generation. The scheduled workflow refreshes public values from GitHub."
+  }
+}

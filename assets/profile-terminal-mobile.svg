@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="940" viewBox="0 0 680 940" role="img" aria-labelledby="svg-title svg-desc">
+  <title id="svg-title">orgalorg7 terminal profile</title>
+  <desc id="svg-desc">A mobile terminal-inspired profile for Mohammed Nehad.</desc>
+  <style>
+    text { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .primary { fill: #c9d1d9; }
+    .secondary { fill: #8b949e; }
+    .label { fill: #f0883e; font-weight: 600; }
+    .value { fill: #58a6ff; }
+    .accent { fill: #76e3ea; }
+    .section { fill: #c9d1d9; font-weight: 700; letter-spacing: .7px; }
+    .leader { stroke: #484f58; stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1 7; }
+    .rule { stroke: #30363d; stroke-width: 1; }
+  </style>
+  <rect width="680" height="940" rx="18" fill="#0d1117"/>
+  <rect x="16" y="16" width="648" height="908" rx="16" fill="#10151d" stroke="#30363d"/>
+  <path d="M32 16h616a16 16 0 0 1 16 16v34H16V32a16 16 0 0 1 16-16Z" fill="#161d27"/>
+  <line x1="16" y1="66" x2="664" y2="66" class="rule"/>
+  <circle cx="42" cy="41" r="6" fill="#f85149" opacity=".85"/>
+  <circle cx="64" cy="41" r="6" fill="#f0883e" opacity=".85"/>
+  <circle cx="86" cy="41" r="6" fill="#3fb950" opacity=".85"/>
+  <text x="112" y="47" class="primary" font-size="17" font-weight="600">profile.sh</text>
+  <text x="642" y="47" text-anchor="end" class="secondary" font-size="14">~/orgalorg7/profile</text>
+  <text x="38" y="100" class="accent" font-size="15">$</text>
+  <text x="60" y="100" class="secondary" font-size="15">./profile --verbose</text>
+  <text x="38" y="130" class="accent" font-size="15" xml:space="preserve">    │  ███╗   ███╗  ███╗   ██╗       │</text>
+    <text x="38" y="151" class="accent" font-size="15" xml:space="preserve">    │  ████╗ ████║  ████╗  ██║       │</text>
+    <text x="38" y="172" class="accent" font-size="15" xml:space="preserve">    │  ██╔████╔██║  ██╔██╗ ██║       │</text>
+    <text x="38" y="193" class="accent" font-size="15" xml:space="preserve">    │  ██║╚██╔╝██║  ██║╚██╗██║       │</text>
+    <text x="38" y="214" class="accent" font-size="15" xml:space="preserve">    │  ██║ ╚═╝ ██║  ██║ ╚████║       │</text>
+    <text x="38" y="235" class="accent" font-size="15" xml:space="preserve">    │  ╚═╝     ╚═╝  ╚═╝  ╚═══╝       │</text>
+  <text x="38" y="286" class="accent" font-size="18" font-weight="700">orgalorg7</text>
+  <text x="135.2" y="286" class="secondary" font-size="18">@github</text>
+  <line x1="38" y1="302" x2="642" y2="302" stroke="#58a6ff" stroke-opacity=".65"/>
+  <text x="38" y="322" class="section" font-size="14.5">System</text>
+    <line x1="148" y1="317" x2="642" y2="317" class="rule"/>
+  <text x="38" y="344" class="label" font-size="15">Role</text>
+    <line x1="170" y1="339" x2="388.8" y2="339" class="leader"/>
+    <text x="642" y="344" text-anchor="end" class="value" font-size="15">Independent software engineer</text>
+    <text x="38" y="367" class="label" font-size="15">Base</text>
+    <line x1="170" y1="362" x2="529.0" y2="362" class="leader"/>
+    <text x="642" y="367" text-anchor="end" class="value" font-size="15">Cairo, Egypt</text>
+    <text x="38" y="390" class="label" font-size="15">Practice</text>
+    <line x1="170" y1="385" x2="471.3" y2="385" class="leader"/>
+    <text x="642" y="390" text-anchor="end" class="value" font-size="15">Product engineering</text>
+    <text x="38" y="413" class="label" font-size="15">Mode</text>
+    <line x1="170" y1="408" x2="397.0" y2="408" class="leader"/>
+    <text x="642" y="413" text-anchor="end" class="value" font-size="15">Architecture before ornament</text>
+  <text x="38" y="460" class="section" font-size="14.5">Stack</text>
+    <line x1="148" y1="455" x2="642" y2="455" class="rule"/>
+  <text x="38" y="482" class="label" font-size="15">Languages</text>
+    <line x1="170" y1="477" x2="430.0" y2="477" class="leader"/>
+    <text x="642" y="482" text-anchor="end" class="value" font-size="15">Go · TypeScript · Python</text>
+    <text x="38" y="505" class="label" font-size="15">Domains</text>
+    <line x1="170" y1="500" x2="446.5" y2="500" class="leader"/>
+    <text x="642" y="505" text-anchor="end" class="value" font-size="15">APIs · Maps · Realtime</text>
+    <text x="38" y="528" class="label" font-size="15">Workflow</text>
+    <line x1="170" y1="523" x2="529.0" y2="523" class="leader"/>
+    <text x="642" y="528" text-anchor="end" class="value" font-size="15">Git · GitHub</text>
+  <text x="38" y="575" class="section" font-size="14.5">Currently</text>
+    <line x1="148" y1="570" x2="642" y2="570" class="rule"/>
+  <text x="38" y="597" class="label" font-size="15">Building</text>
+    <line x1="170" y1="592" x2="421.8" y2="592" class="leader"/>
+    <text x="642" y="597" text-anchor="end" class="value" font-size="15">Geospatial data workflows</text>
+    <text x="38" y="620" class="label" font-size="15">Refining</text>
+    <line x1="170" y1="615" x2="331.0" y2="615" class="leader"/>
+    <text x="642" y="620" text-anchor="end" class="value" font-size="15">Domain boundaries &amp; Go API contracts</text>
+    <text x="38" y="643" class="label" font-size="15">Focus</text>
+    <line x1="170" y1="638" x2="372.3" y2="638" class="leader"/>
+    <text x="642" y="643" text-anchor="end" class="value" font-size="15">Maps, data &amp; product interfaces</text>
+  <text x="38" y="690" class="section" font-size="14.5">Contact</text>
+    <line x1="148" y1="685" x2="642" y2="685" class="rule"/>
+  <text x="38" y="712" class="label" font-size="15">GitHub</text>
+    <line x1="170" y1="707" x2="463.0" y2="707" class="leader"/>
+    <text x="642" y="712" text-anchor="end" class="value" font-size="15">github.com/orgalorg7</text>
+  <text x="38" y="782" class="section" font-size="14.5">GitHub</text>
+    <line x1="148" y1="777" x2="642" y2="777" class="rule"/>
+  <text x="38" y="804" class="label" font-size="15">Repositories</text>
+    <line x1="170" y1="799" x2="619.8" y2="799" class="leader"/>
+    <text x="642" y="804" text-anchor="end" class="value" font-size="15">7</text>
+    <text x="38" y="827" class="label" font-size="15">Followers</text>
+    <line x1="170" y1="822" x2="611.5" y2="822" class="leader"/>
+    <text x="642" y="827" text-anchor="end" class="value" font-size="15">11</text>
+    <text x="38" y="850" class="label" font-size="15">Stars</text>
+    <line x1="170" y1="845" x2="619.8" y2="845" class="leader"/>
+    <text x="642" y="850" text-anchor="end" class="value" font-size="15">0</text>
+    <text x="38" y="873" class="label" font-size="15">Public commits</text>
+    <line x1="170" y1="868" x2="603.3" y2="868" class="leader"/>
+    <text x="642" y="873" text-anchor="end" class="value" font-size="15">180</text>
+  <text x="38" y="906" class="accent" font-size="15">$</text>
+  <rect x="60" y="893" width="9" height="15" rx="1" fill="#8b949e"/>
+</svg>
