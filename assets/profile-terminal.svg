@@ -23,27 +23,28 @@
   <text x="1160" y="47" text-anchor="end" class="secondary" font-size="15">~/orgalorg7/profile</text>
   <text x="38" y="112" class="accent" font-size="16">$</text>
   <text x="60" y="112" class="secondary" font-size="16">./profile --verbose</text>
-  <text x="38" y="150" class="primary" font-size="16" opacity=".78" xml:space="preserve">         ..       .:::..     ..</text>
-    <text x="38" y="170" class="primary" font-size="16" opacity=".78" xml:space="preserve">        .   .:-+*##%%####+=:.</text>
-    <text x="38" y="190" class="primary" font-size="16" opacity=".78" xml:space="preserve">      .. .=#%%@@@@%%%@@%%@@@@*...</text>
-    <text x="38" y="210" class="primary" font-size="16" opacity=".78" xml:space="preserve">     .  =%@@@%%@@@@%%@@@@@@@@@+ .</text>
-    <text x="38" y="230" class="primary" font-size="16" opacity=".78" xml:space="preserve">    ...#@@@@@%%@@@@@@@@@%##%@@@+..</text>
-    <text x="38" y="250" class="primary" font-size="16" opacity=".78" xml:space="preserve">    . +@@@@@@@@@@@@@@%*-....*@@@: .</text>
-    <text x="38" y="270" class="primary" font-size="16" opacity=".78" xml:space="preserve">    . -@@###++=---=-::..::-::%@@-..</text>
-    <text x="38" y="290" class="primary" font-size="16" opacity=".78" xml:space="preserve">    . .@- .    .......:::::..-%@-..</text>
-    <text x="38" y="310" class="primary" font-size="16" opacity=".78" xml:space="preserve">      .- .-=****-:::=*##*+-   =%. .</text>
-    <text x="38" y="330" class="primary" font-size="16" opacity=".78" xml:space="preserve">     ...=*%%%%%@@+=*@@@%%%%****-..</text>
-    <text x="38" y="350" class="primary" font-size="16" opacity=".78" xml:space="preserve">     . :%@#%%%%#%%+%#*#%%#+%+:  .</text>
-    <text x="38" y="370" class="primary" font-size="16" opacity=".78" xml:space="preserve">      ..-%*+++++#=.-#******+  ...</text>
-    <text x="38" y="390" class="primary" font-size="16" opacity=".78" xml:space="preserve">      .  :=+**+=-...:=*+++- ....</text>
-    <text x="38" y="410" class="primary" font-size="16" opacity=".78" xml:space="preserve">            ::.-##=*%==+=  .... ..</text>
-    <text x="38" y="430" class="primary" font-size="16" opacity=".78" xml:space="preserve">         .: +@%@*--::+%#*.     ..</text>
-    <text x="38" y="450" class="primary" font-size="16" opacity=".78" xml:space="preserve">   ... ..:#:..::. ... .. .::=:.  ..</text>
-    <text x="38" y="470" class="primary" font-size="16" opacity=".78" xml:space="preserve">      .   +#*=..   ...:+##%@%%@*.  ....</text>
-    <text x="38" y="490" class="primary" font-size="16" opacity=".78" xml:space="preserve">   +=. .:-=%%@%*=:.:+#@@@@#++=@@@*:</text>
-    <text x="38" y="510" class="primary" font-size="16" opacity=".78" xml:space="preserve">   @@%#%@@@#%%#%%%##%%#*=. :-.-@@@@#=:.</text>
-    <text x="38" y="530" class="primary" font-size="16" opacity=".78" xml:space="preserve">   @@@@@@@@-=+ .::::..   .::..-@@@@@@@%</text>
-    <text x="38" y="550" class="primary" font-size="16" opacity=".78" xml:space="preserve">   @@@@@@@%--=.       ..::....#@@@@@@@@</text>
+  <text x="38" y="150" class="primary" font-size="16" opacity=".82" xml:space="preserve">                    .</text>
+    <text x="38" y="169" class="primary" font-size="16" opacity=".82" xml:space="preserve">             ..:-----=-:::.</text>
+    <text x="38" y="188" class="primary" font-size="16" opacity=".82" xml:space="preserve">          .:---------:--=--:..</text>
+    <text x="38" y="207" class="primary" font-size="16" opacity=".82" xml:space="preserve">        .:::--::::---::.....  .</text>
+    <text x="38" y="226" class="primary" font-size="16" opacity=".82" xml:space="preserve">       .:..:---:..........::  ::</text>
+    <text x="38" y="245" class="primary" font-size="16" opacity=".82" xml:space="preserve">      .  .:-:-:::::. . ..:..=-::.</text>
+    <text x="38" y="264" class="primary" font-size="16" opacity=".82" xml:space="preserve">        :=-:::.......--=#%%#++:..</text>
+    <text x="38" y="283" class="primary" font-size="16" opacity=".82" xml:space="preserve">       -..   .:::--++@@@@%%*..-..</text>
+    <text x="38" y="302" class="primary" font-size="16" opacity=".82" xml:space="preserve">      ..  :-*##%@%#*%#***#+    -.</text>
+    <text x="38" y="321" class="primary" font-size="16" opacity=".82" xml:space="preserve">        :=++=-:--:-:-::-===-:..:.</text>
+    <text x="38" y="340" class="primary" font-size="16" opacity=".82" xml:space="preserve">       ----:-:::--*=-::::-==-:</text>
+    <text x="38" y="359" class="primary" font-size="16" opacity=".82" xml:space="preserve">       :-=*===+*-+#==*+++*#+:</text>
+    <text x="38" y="378" class="primary" font-size="16" opacity=".82" xml:space="preserve">        =+*****++@@%++=+++=:   ..</text>
+    <text x="38" y="397" class="primary" font-size="16" opacity=".82" xml:space="preserve">         ..:-.  :-=-::.:..</text>
+    <text x="38" y="416" class="primary" font-size="16" opacity=".82" xml:space="preserve">           ...:-:...:==-:</text>
+    <text x="38" y="435" class="primary" font-size="16" opacity=".82" xml:space="preserve">         -..::::..-: .:=.</text>
+    <text x="38" y="454" class="primary" font-size="16" opacity=".82" xml:space="preserve">         -+...        -+.:::-.</text>
+    <text x="38" y="473" class="primary" font-size="16" opacity=".82" xml:space="preserve">          -+==++:  .-*#*-==-==</text>
+    <text x="38" y="492" class="primary" font-size="16" opacity=".82" xml:space="preserve">          .:---==-::+=::::..:#* .</text>
+    <text x="38" y="511" class="primary" font-size="16" opacity=".82" xml:space="preserve">    ...   .+----==+-:::::  :*%@= . ..</text>
+    <text x="38" y="530" class="primary" font-size="16" opacity=".82" xml:space="preserve">  ::..... :@=  ...:..     *@@%@=.....:..</text>
+    <text x="38" y="549" class="primary" font-size="16" opacity=".82" xml:space="preserve">  ........+#%=        .-+%@%%@#::...::..</text>
   <text x="38" y="632" class="accent" font-size="16">$</text>
   <rect x="60" y="618" width="10" height="16" rx="1" fill="#8b949e"/>
 

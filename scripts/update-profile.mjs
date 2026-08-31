@@ -273,8 +273,8 @@ function renderDesktop(config, stats) {
   const contacts = contactRows(config).slice(0, 3);
   const metrics = statRows(stats).slice(0, 4);
 
-  const ascii = config.terminal.ascii.slice(0, 21).map((line, index) =>
-    `<text x="38" y="${150 + index * 20}" class="primary" font-size="16" opacity=".78" xml:space="preserve">${escapeXml(line)}</text>`
+  const ascii = config.terminal.ascii.slice(0, 22).map((line, index) =>
+    `<text x="38" y="${150 + index * 19}" class="primary" font-size="16" opacity=".82" xml:space="preserve">${escapeXml(line)}</text>`
   ).join("\n    ");
 
   const system = systemRows(config).slice(0, 4).map((row, index) => desktopRow({
@@ -365,8 +365,8 @@ function renderMobile(config, stats) {
     label,
     value: values.join(" · ")
   }));
-  const compactAscii = config.terminal.ascii.slice(0, 21).map((line, index) =>
-    `<text x="160" y="${126 + index * 14}" class="primary" font-size="13" opacity=".78" xml:space="preserve">${escapeXml(line)}</text>`
+  const compactAscii = config.terminal.ascii.slice(0, 22).map((line, index) =>
+    `<text x="150" y="${126 + index * 13.5}" class="primary" font-size="13" opacity=".82" xml:space="preserve">${escapeXml(line)}</text>`
   ).join("\n    ");
 
   const system = systemRows(config).slice(0, 4).map((row, index) => mobileRow({
