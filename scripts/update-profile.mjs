@@ -273,10 +273,9 @@ function renderDesktop(config, stats) {
   const contacts = contactRows(config).slice(0, 3);
   const metrics = statRows(stats).slice(0, 4);
 
-  const ascii = config.terminal.ascii.slice(0, 20).map((line, index) => {
-    const className = index === 2 || (index >= 4 && index <= 9) || index === 17 ? "accent" : "secondary";
-    return `<text x="38" y="${154 + index * 22}" class="${className}" font-size="15.5" xml:space="preserve">${escapeXml(line)}</text>`;
-  }).join("\n    ");
+  const ascii = config.terminal.ascii.slice(0, 21).map((line, index) =>
+    `<text x="38" y="${150 + index * 20}" class="primary" font-size="16" opacity=".78" xml:space="preserve">${escapeXml(line)}</text>`
+  ).join("\n    ");
 
   const system = systemRows(config).slice(0, 4).map((row, index) => desktopRow({
     ...row,
@@ -366,30 +365,30 @@ function renderMobile(config, stats) {
     label,
     value: values.join(" · ")
   }));
-  const compactAscii = config.terminal.ascii.slice(4, 10).map((line, index) =>
-    `<text x="38" y="${130 + index * 21}" class="accent" font-size="15" xml:space="preserve">${escapeXml(line)}</text>`
+  const compactAscii = config.terminal.ascii.slice(0, 21).map((line, index) =>
+    `<text x="160" y="${126 + index * 14}" class="primary" font-size="13" opacity=".78" xml:space="preserve">${escapeXml(line)}</text>`
   ).join("\n    ");
 
   const system = systemRows(config).slice(0, 4).map((row, index) => mobileRow({
     ...row,
-    y: 344 + index * 23
+    y: 502 + index * 23
   })).join("\n    ");
   const stack = stackRows.slice(0, 3).map((row, index) => mobileRow({
     ...row,
-    y: 482 + index * 23
+    y: 640 + index * 23
   })).join("\n    ");
   const current = config.currently.slice(0, 3).map((row, index) => mobileRow({
     ...row,
-    y: 597 + index * 23
+    y: 755 + index * 23
   })).join("\n    ");
   const contacts = contactRows(config).slice(0, 2).map((row, index) => mobileRow({
     ...row,
-    y: 712 + index * 23,
+    y: 870 + index * 23,
     max: 42
   })).join("\n    ");
   const metrics = statRows(stats).slice(0, 4).map((row, index) => mobileRow({
     ...row,
-    y: 804 + index * 23,
+    y: 962 + index * 23,
     max: 20
   })).join("\n    ");
 
@@ -397,25 +396,25 @@ function renderMobile(config, stats) {
   <text x="38" y="100" class="accent" font-size="15">$</text>
   <text x="60" y="100" class="secondary" font-size="15">${escapeXml(config.terminal.command)}</text>
   ${compactAscii}
-  <text x="38" y="286" class="accent" font-size="18" font-weight="700">${escapeXml(config.profile.username)}</text>
-  <text x="${38 + config.profile.username.length * 10.8}" y="286" class="secondary" font-size="18">@github</text>
-  <line x1="38" y1="302" x2="642" y2="302" stroke="${palette.blue}" stroke-opacity=".65"/>
-  ${mobileHeading("System", 322)}
+  <text x="38" y="444" class="accent" font-size="18" font-weight="700">${escapeXml(config.profile.username)}</text>
+  <text x="${38 + config.profile.username.length * 10.8}" y="444" class="secondary" font-size="18">@github</text>
+  <line x1="38" y1="460" x2="642" y2="460" stroke="${palette.blue}" stroke-opacity=".65"/>
+  ${mobileHeading("System", 480)}
   ${system}
-  ${mobileHeading("Stack", 460)}
+  ${mobileHeading("Stack", 618)}
   ${stack}
-  ${mobileHeading("Currently", 575)}
+  ${mobileHeading("Currently", 733)}
   ${current}
-  ${mobileHeading("Contact", 690)}
+  ${mobileHeading("Contact", 848)}
   ${contacts}
-  ${mobileHeading("GitHub", 782)}
+  ${mobileHeading("GitHub", 940)}
   ${metrics}
-  <text x="38" y="906" class="accent" font-size="15">$</text>
-  <rect x="60" y="893" width="9" height="15" rx="1" fill="${palette.secondary}"/>`;
+  <text x="38" y="1070" class="accent" font-size="15">$</text>
+  <rect x="60" y="1057" width="9" height="15" rx="1" fill="${palette.secondary}"/>`;
 
   return svgShell({
     width: 680,
-    height: 940,
+    height: 1100,
     title: `${config.profile.username} terminal profile`,
     chromeTitle: config.terminal.title,
     description: `A mobile terminal-inspired profile for ${config.profile.name}.`,
