@@ -113,7 +113,7 @@
     <text x="830" y="628" class="label" font-size="16">Stars</text>
     <line x1="952" y1="623" x2="1116.9" y2="623" class="leader"/>
     <text x="1144" y="628" text-anchor="end" class="value" font-size="16">0</text>
-    <text x="830" y="650" class="label" font-size="16">Public commits</text>
+    <text x="830" y="650" class="label" font-size="16">Contrib. YTD</text>
     <line x1="952" y1="645" x2="1098.7" y2="645" class="leader"/>
-    <text x="1144" y="650" text-anchor="end" class="value" font-size="16">180</text>
+    <text x="1144" y="650" text-anchor="end" class="value" font-size="16">586</text>
 </svg>
