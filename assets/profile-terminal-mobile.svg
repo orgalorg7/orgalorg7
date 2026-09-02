@@ -104,7 +104,7 @@
     <text x="642" y="962" text-anchor="end" class="value" font-size="15">7</text>
     <text x="38" y="985" class="label" font-size="15">Followers</text>
     <line x1="170" y1="980" x2="611.5" y2="980" class="leader"/>
-    <text x="642" y="985" text-anchor="end" class="value" font-size="15">11</text>
+    <text x="642" y="985" text-anchor="end" class="value" font-size="15">10</text>
     <text x="38" y="1008" class="label" font-size="15">Stars</text>
     <line x1="170" y1="1003" x2="619.8" y2="1003" class="leader"/>
     <text x="642" y="1008" text-anchor="end" class="value" font-size="15">0</text>
