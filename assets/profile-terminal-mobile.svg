@@ -104,13 +104,13 @@
     <text x="642" y="962" text-anchor="end" class="value" font-size="15">7</text>
     <text x="38" y="985" class="label" font-size="15">Followers</text>
     <line x1="170" y1="980" x2="611.5" y2="980" class="leader"/>
-    <text x="642" y="985" text-anchor="end" class="value" font-size="15">11</text>
+    <text x="642" y="985" text-anchor="end" class="value" font-size="15">12</text>
     <text x="38" y="1008" class="label" font-size="15">Stars</text>
     <line x1="170" y1="1003" x2="619.8" y2="1003" class="leader"/>
     <text x="642" y="1008" text-anchor="end" class="value" font-size="15">0</text>
     <text x="38" y="1031" class="label" font-size="15">Contrib. YTD</text>
     <line x1="170" y1="1026" x2="603.3" y2="1026" class="leader"/>
-    <text x="642" y="1031" text-anchor="end" class="value" font-size="15">680</text>
+    <text x="642" y="1031" text-anchor="end" class="value" font-size="15">714</text>
   <text x="38" y="1070" class="accent" font-size="15">$</text>
   <rect x="60" y="1057" width="9" height="15" rx="1" fill="#8b949e"/>
 </svg>
