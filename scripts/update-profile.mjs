@@ -4,6 +4,7 @@ import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import { constants as fsConstants } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { favoritesMarkdown, writeFavoritesAssets } from "./render-favorites.mjs";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, "..");
@@ -15,6 +16,7 @@ const mobileSvgPath = path.join(assetsDir, "profile-terminal-mobile.svg");
 const readmePath = path.join(rootDir, "README.md");
 
 const offline = process.argv.includes("--offline");
+const readmeOnly = process.argv.includes("--readme-only");
 const token = process.env.GITHUB_TOKEN?.trim();
 
 const palette = {
@@ -485,20 +487,7 @@ function renderReadme(config) {
   if (config.contact.linkedin) contacts.push(`[LinkedIn](${config.contact.linkedin})`);
   if (config.contact.email) contacts.push(`[Email](mailto:${config.contact.email})`);
 
-  const favoriteRows = [
-    ["Album", config.favorites?.album, "artist"],
-    ["Song", config.favorites?.song, "artist"],
-    ["Movie", config.favorites?.movie, "director"]
-  ].filter(([, favorite]) => favorite?.title?.trim())
-    .map(([label, favorite, creditKey]) => {
-      const title = escapeMarkdown(escapeXml(favorite.title));
-      const credit = favorite[creditKey]?.trim();
-      const pick = credit ? `${title} — ${escapeMarkdown(escapeXml(credit))}` : title;
-      return `| ${label} | ${pick} |`;
-    }).join("\n");
-  const favoritesSection = favoriteRows
-    ? `\n## On repeat & on screen\n\n\`$ cat favorites.conf\`\n\n| Favorite | Pick |\n|:--|:--|\n${favoriteRows}\n`
-    : "";
+  const favoritesSection = favoritesMarkdown(config);
 
   return `<!-- Generated from profile.config.json by scripts/update-profile.mjs. -->
 <picture>
@@ -525,6 +514,14 @@ async function main() {
   const portrait = JSON.parse(await readFile(portraitPath, "utf8"));
   assertConfig(config);
   assertPortrait(portrait);
+  await mkdir(assetsDir, { recursive: true });
+  await writeFavoritesAssets(config);
+
+  if (readmeOnly) {
+    await writeFile(readmePath, renderReadme(config), "utf8");
+    console.log("Rendered README and favorites without refreshing profile statistics.");
+    return;
+  }
 
   let stats = { ...config.statsFallback };
   let liveStatsAvailable = false;

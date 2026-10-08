@@ -14,15 +14,12 @@
 | Domains | APIs · Maps · Realtime |
 | Workflow | Git · GitHub |
 
-## On repeat & on screen
+<picture>
+  <source media="(max-width: 640px)" srcset="./assets/favorites-mobile.svg">
+  <img src="./assets/favorites.svg" width="100%" alt="Favorites: The Wall — Pink Floyd; Epitaph — King Crimson; Downfall.">
+</picture>
 
-`$ cat favorites.conf`
-
-| Favorite | Pick |
-|:--|:--|
-| Album | The Wall — Pink Floyd |
-| Song | Epitaph — King Crimson |
-| Movie | Downfall |
+<sub><a href="https://www.pinkfloyd.com/albums/the-wall/">Album ↗</a> &nbsp; · &nbsp; <a href="https://en.wikipedia.org/wiki/Epitaph_(song)">Song ↗</a> &nbsp; · &nbsp; <a href="https://en.wikipedia.org/wiki/Downfall_(2004_film)">Film ↗</a></sub>
 
 ## Connect
 

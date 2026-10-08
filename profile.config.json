@@ -57,9 +57,21 @@
   },
   "projects": [],
   "favorites": {
-    "album": { "title": "The Wall", "artist": "Pink Floyd" },
-    "song": { "title": "Epitaph", "artist": "King Crimson" },
-    "movie": { "title": "Downfall", "director": "" }
+    "album": {
+      "title": "The Wall", "artist": "Pink Floyd", "year": "1979",
+      "artwork": "assets/favorites/the-wall.jpg",
+      "url": "https://www.pinkfloyd.com/albums/the-wall/"
+    },
+    "song": {
+      "title": "Epitaph", "artist": "King Crimson", "year": "1969",
+      "artwork": "assets/favorites/epitaph.jpg",
+      "url": "https://en.wikipedia.org/wiki/Epitaph_(song)"
+    },
+    "movie": {
+      "title": "Downfall", "director": "Oliver Hirschbiegel", "year": "2004",
+      "artwork": "assets/favorites/downfall.jpg",
+      "url": "https://en.wikipedia.org/wiki/Downfall_(2004_film)"
+    }
   },
   "statsFallback": {
     "repositories": 7,
@@ -71,7 +83,7 @@
   "_help": {
     "contact": "Set github to true to derive it from profile.username. Leave optional contact values empty to hide them.",
     "projects": "Add objects shaped like: { name, description, url, tech: [\"Go\", \"PostgreSQL\"] }. Empty means the section is omitted.",
-    "favorites": "Set album and song title/artist and movie title/director. Credits are optional; entries with an empty title stay hidden.",
+    "favorites": "Set album/song title and artist, movie title and director, year, local JPEG artwork path and optional HTTPS url. All three titles enable the illustrated shelf. Run node scripts/update-profile.mjs --readme-only to regenerate without changing statistics.",
     "statsFallback": "Used only for local/offline generation. The scheduled workflow refreshes public values from GitHub."
   }
 }
