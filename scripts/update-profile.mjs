@@ -87,6 +87,11 @@ function assertPortrait(portrait) {
     if (line.chars.length !== portrait.columns || line.colors.length !== portrait.columns) {
       throw new Error("ASCII portrait line width does not match its metadata");
     }
+    if (!Array.isArray(line.colors) || line.colors.some((index) =>
+      !Number.isInteger(index) || index < 0 || index >= portrait.palette.length
+    )) {
+      throw new Error("ASCII portrait contains an invalid palette index");
+    }
   }
 }
 
@@ -280,7 +285,10 @@ function statRows(stats) {
   return rows;
 }
 
-function portraitText(portrait, { x, y, fontSize, lineHeight }) {
+function portraitText(portrait, { x, y, width, height }) {
+  const cellWidth = width / portrait.columns;
+  const lineHeight = height / portrait.rows;
+  const fontSize = cellWidth / 0.6;
   return portrait.lines.map((line, rowIndex) => {
     const runs = [];
     let start = 0;
@@ -289,10 +297,13 @@ function portraitText(portrait, { x, y, fontSize, lineHeight }) {
       let end = start + 1;
       while (end < line.chars.length && line.colors[end] === colorKey) end += 1;
       const color = portrait.palette[Number(colorKey)] ?? palette.secondary;
-      runs.push(`<tspan fill="${escapeXml(color)}">${escapeXml(line.chars.slice(start, end))}</tspan>`);
+      const chars = line.chars.slice(start, end);
+      if (chars.trim()) {
+        runs.push(`<tspan x="${(x + start * cellWidth).toFixed(3)}" fill="${escapeXml(color)}" textLength="${((end - start) * cellWidth).toFixed(3)}" lengthAdjust="spacingAndGlyphs">${escapeXml(chars)}</tspan>`);
+      }
       start = end;
     }
-    return `<text x="${x}" y="${y + rowIndex * lineHeight}" font-size="${fontSize}" xml:space="preserve">${runs.join("")}</text>`;
+    return `<text y="${(y + rowIndex * lineHeight + fontSize * 0.8).toFixed(3)}" font-family="'Liberation Mono', 'Courier New', monospace" font-size="${fontSize.toFixed(3)}" font-weight="700" xml:space="preserve">${runs.join("")}</text>`;
   }).join("\n    ");
 }
 
@@ -304,7 +315,7 @@ function renderDesktop(config, stats, portrait) {
   const contacts = contactRows(config).slice(0, 3);
   const metrics = statRows(stats).slice(0, 4);
 
-  const ascii = portraitText(portrait, { x: 30, y: 136, fontSize: 12.5, lineHeight: 13.5 });
+  const ascii = portraitText(portrait, { x: 30, y: 132, width: 396, height: 396 });
 
   const system = systemRows(config).slice(0, 4).map((row, index) => desktopRow({
     ...row,
@@ -394,7 +405,7 @@ function renderMobile(config, stats, portrait) {
     label,
     value: values.join(" · ")
   }));
-  const compactAscii = portraitText(portrait, { x: 156, y: 118, fontSize: 10.2, lineHeight: 10.5 });
+  const compactAscii = portraitText(portrait, { x: 184, y: 112, width: 312, height: 312 });
 
   const system = systemRows(config).slice(0, 4).map((row, index) => mobileRow({
     ...row,
