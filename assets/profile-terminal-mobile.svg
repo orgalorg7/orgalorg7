@@ -139,14 +139,14 @@
   <text x="38" y="618" class="section" font-size="14.5">Stack</text>
     <line x1="148" y1="613" x2="642" y2="613" class="rule"/>
   <text x="38" y="640" class="label" font-size="15">Languages</text>
-    <line x1="170" y1="635" x2="430.0" y2="635" class="leader"/>
-    <text x="642" y="640" text-anchor="end" class="value" font-size="15">Go · TypeScript · Python</text>
-    <text x="38" y="663" class="label" font-size="15">Domains</text>
-    <line x1="170" y1="658" x2="446.5" y2="658" class="leader"/>
-    <text x="642" y="663" text-anchor="end" class="value" font-size="15">APIs · Maps · Realtime</text>
-    <text x="38" y="686" class="label" font-size="15">Workflow</text>
-    <line x1="170" y1="681" x2="529.0" y2="681" class="leader"/>
-    <text x="642" y="686" text-anchor="end" class="value" font-size="15">Git · GitHub</text>
+    <line x1="170" y1="635" x2="339.3" y2="635" class="leader"/>
+    <text x="642" y="640" text-anchor="end" class="value" font-size="15">Go · TypeScript · Python · C · Rust</text>
+    <text x="38" y="663" class="label" font-size="15">Backend</text>
+    <line x1="170" y1="658" x2="430.0" y2="658" class="leader"/>
+    <text x="642" y="663" text-anchor="end" class="value" font-size="15">Node.js · NestJS · Redis</text>
+    <text x="38" y="686" class="label" font-size="15">Infrastructure</text>
+    <line x1="170" y1="681" x2="537.3" y2="681" class="leader"/>
+    <text x="642" y="686" text-anchor="end" class="value" font-size="15">NGINX · AWS</text>
   <text x="38" y="733" class="section" font-size="14.5">Currently</text>
     <line x1="148" y1="728" x2="642" y2="728" class="rule"/>
   <text x="38" y="755" class="label" font-size="15">Building</text>
@@ -174,9 +174,9 @@
     <text x="38" y="1008" class="label" font-size="15">Stars</text>
     <line x1="170" y1="1003" x2="619.8" y2="1003" class="leader"/>
     <text x="642" y="1008" text-anchor="end" class="value" font-size="15">0</text>
-    <text x="38" y="1031" class="label" font-size="15">Contrib. YTD</text>
-    <line x1="170" y1="1026" x2="586.8" y2="1026" class="leader"/>
-    <text x="642" y="1031" text-anchor="end" class="value" font-size="15">1,797</text>
+    <text x="38" y="1031" class="label" font-size="15">Public commits</text>
+    <line x1="170" y1="1026" x2="603.3" y2="1026" class="leader"/>
+    <text x="642" y="1031" text-anchor="end" class="value" font-size="15">217</text>
   <text x="38" y="1070" class="accent" font-size="15">$</text>
   <rect x="60" y="1057" width="9" height="15" rx="1" fill="#8b949e"/>
 </svg>

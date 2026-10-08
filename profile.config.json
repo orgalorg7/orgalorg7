@@ -36,18 +36,62 @@
     ]
   },
   "system": [
-    { "label": "Practice", "value": "Product engineering" },
-    { "label": "Mode", "value": "Architecture before ornament" }
+    {
+      "label": "Practice",
+      "value": "Product engineering"
+    },
+    {
+      "label": "Mode",
+      "value": "Architecture before ornament"
+    }
   ],
   "stack": {
-    "Languages": ["Go", "TypeScript", "Python"],
-    "Domains": ["APIs", "Maps", "Realtime"],
-    "Workflow": ["Git", "GitHub"]
+    "Languages": [
+      "Go",
+      "TypeScript",
+      "Python",
+      "C",
+      "Rust"
+    ],
+    "Backend": [
+      "Node.js",
+      "NestJS",
+      "Redis"
+    ],
+    "Infrastructure": [
+      "NGINX",
+      "AWS"
+    ],
+    "Domains": [
+      "System design",
+      "APIs",
+      "Maps",
+      "Realtime"
+    ],
+    "Workflow": [
+      "Git",
+      "GitHub"
+    ],
+    "Data & labs": [
+      "SQLite",
+      "OpenStreetMap",
+      "Jupyter",
+      "Packet Tracer"
+    ]
   },
   "currently": [
-    { "label": "Building", "value": "Geospatial data workflows" },
-    { "label": "Refining", "value": "Domain boundaries & Go API contracts" },
-    { "label": "Focus", "value": "Maps, data & product interfaces" }
+    {
+      "label": "Building",
+      "value": "Geospatial data workflows"
+    },
+    {
+      "label": "Refining",
+      "value": "Domain boundaries & Go API contracts"
+    },
+    {
+      "label": "Focus",
+      "value": "Maps, data & product interfaces"
+    }
   ],
   "contact": {
     "github": true,
@@ -55,20 +99,90 @@
     "linkedin": "",
     "website": ""
   },
-  "projects": [],
+  "projects": [
+    {
+      "name": "Lead Hunter",
+      "category": "GEOSPATIAL / BUSINESS INTELLIGENCE",
+      "description": "A persistent CLI for discovering public businesses, assessing websites, and exporting useful lead data.",
+      "details": [
+        "OpenStreetMap discovery + website assessment",
+        "Deduplication, SQLite persistence + CSV / Excel exports"
+      ],
+      "url": "https://github.com/orgalorg7/web-scraping-for-business-intelligence",
+      "tech": [
+        "Python",
+        "OpenStreetMap",
+        "SQLite"
+      ],
+      "motif": "pipeline"
+    },
+    {
+      "name": "HTTP server in Rust",
+      "category": "SYSTEMS / NETWORK PROGRAMMING",
+      "description": "An HTTP/1.1 server built on standard TCP types, with routing, middleware, streaming, and bounded workers.",
+      "details": [
+        "Routing, middleware + typed application state",
+        "Streaming responses, worker limits + graceful shutdown"
+      ],
+      "url": "https://github.com/orgalorg7/http-server-in-rust",
+      "tech": [
+        "Rust",
+        "TCP",
+        "HTTP/1.1"
+      ],
+      "motif": "http"
+    },
+    {
+      "name": "Network lab",
+      "category": "INFRASTRUCTURE / LABS",
+      "description": "Packet Tracer projects covering company networks, access-control lists, and intrusion-detection scenarios.",
+      "details": [
+        "Network design, access-control lists",
+        "& intrusion-detection scenarios"
+      ],
+      "url": "https://github.com/orgalorg7/infra-projects-packet-tracer",
+      "tech": [
+        "Cisco Packet Tracer",
+        "Networking"
+      ],
+      "motif": "network"
+    },
+    {
+      "name": "Data science notebooks",
+      "category": "DATA / COURSEWORK",
+      "description": "IBM data-science coursework in Jupyter, including a machine-learning prediction lab and historical stock analysis.",
+      "details": [
+        "IBM coursework, prediction labs",
+        "& historical stock analysis"
+      ],
+      "url": "https://github.com/orgalorg7/ibm-data-science",
+      "relatedUrl": "https://github.com/orgalorg7/Analyzing-Historical-Stock",
+      "tech": [
+        "Python",
+        "Jupyter"
+      ],
+      "motif": "notebook"
+    }
+  ],
   "favorites": {
     "album": {
-      "title": "The Wall", "artist": "Pink Floyd", "year": "1979",
+      "title": "The Wall",
+      "artist": "Pink Floyd",
+      "year": "1979",
       "artwork": "assets/favorites/the-wall.jpg",
       "url": "https://www.pinkfloyd.com/albums/the-wall/"
     },
     "song": {
-      "title": "Epitaph", "artist": "King Crimson", "year": "1969",
+      "title": "Epitaph",
+      "artist": "King Crimson",
+      "year": "1969",
       "artwork": "assets/favorites/epitaph.jpg",
       "url": "https://en.wikipedia.org/wiki/Epitaph_(song)"
     },
     "movie": {
-      "title": "Downfall", "director": "Oliver Hirschbiegel", "year": "2004",
+      "title": "Downfall",
+      "director": "Oliver Hirschbiegel",
+      "year": "2004",
       "artwork": "assets/favorites/downfall.jpg",
       "url": "https://en.wikipedia.org/wiki/Downfall_(2004_film)"
     }
@@ -82,8 +196,68 @@
   },
   "_help": {
     "contact": "Set github to true to derive it from profile.username. Leave optional contact values empty to hide them.",
-    "projects": "Add objects shaped like: { name, description, url, tech: [\"Go\", \"PostgreSQL\"] }. Empty means the section is omitted.",
+    "projects": "Selected public work. Each entry has name, category, description, details (short lines), url, tech, and motif. RelatedUrl optionally links supporting work.",
     "favorites": "Set album/song title and artist, movie title and director, year, local JPEG artwork path and optional HTTPS url. All three titles enable the illustrated shelf. Run node scripts/update-profile.mjs --readme-only to regenerate without changing statistics.",
-    "statsFallback": "Used only for local/offline generation. The scheduled workflow refreshes public values from GitHub."
+    "statsFallback": "Used only for local/offline generation. The scheduled workflow refreshes public values from GitHub.",
+    "engineering": "Editorial stack and focus panels. Keep language focuses and current-work copy grounded in your own experience. Public project descriptions are sourced from the linked repository READMEs."
+  },
+  "engineering": {
+    "languages": [
+      {
+        "name": "Go",
+        "focus": "Services & APIs"
+      },
+      {
+        "name": "TypeScript",
+        "focus": "Product interfaces"
+      },
+      {
+        "name": "Python",
+        "focus": "Data & automation"
+      },
+      {
+        "name": "C",
+        "focus": "Low-level systems"
+      },
+      {
+        "name": "Rust",
+        "focus": "HTTP & networking"
+      }
+    ],
+    "principle": "Architecture before ornament.",
+    "about": [
+      "Independent software engineer based in Cairo, Egypt.",
+      "I work across dependable backends, thoughtful interfaces,",
+      "and geospatial systems."
+    ],
+    "focus": [
+      {
+        "label": "BUILDING",
+        "lines": [
+          "Geospatial data",
+          "workflows."
+        ]
+      },
+      {
+        "label": "REFINING",
+        "lines": [
+          "Domain boundaries",
+          "& Go API contracts."
+        ]
+      },
+      {
+        "label": "CONNECTING",
+        "lines": [
+          "Maps, data",
+          "& product interfaces."
+        ]
+      }
+    ],
+    "aboutMobile": [
+      "Independent software engineer",
+      "based in Cairo, Egypt.",
+      "Dependable backends. Thoughtful",
+      "interfaces. Geospatial systems."
+    ]
   }
 }

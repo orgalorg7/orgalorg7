@@ -5,6 +5,7 @@ import { constants as fsConstants } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { favoritesMarkdown, writeFavoritesAssets } from "./render-favorites.mjs";
+import { engineeringPicture, writeEngineeringAssets } from "./render-engineering.mjs";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, "..");
@@ -41,10 +42,6 @@ function escapeXml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&apos;");
-}
-
-function escapeMarkdown(value) {
-  return String(value).replaceAll("|", "\\|").replaceAll("\n", " ").trim();
 }
 
 function assertConfig(config) {
@@ -463,50 +460,35 @@ function renderMobile(config, stats, portrait) {
 }
 
 function renderReadme(config) {
-  const stackRows = Object.entries(config.stack)
-    .filter(([, values]) => Array.isArray(values) && values.length)
-    .map(([label, values]) => `| ${escapeMarkdown(label)} | ${values.map(escapeMarkdown).join(" · ")} |`)
-    .join("\n");
-
-  const projects = (config.projects ?? []).filter((project) =>
-    project?.name && project?.description && project?.url
-  );
-
-  const projectSection = projects.length
-    ? `\n## Selected work\n\n${projects.slice(0, 4).map((project) => {
-        const tech = Array.isArray(project.tech) && project.tech.length
-          ? `\n\n${project.tech.map((item) => `\`${escapeMarkdown(item)}\``).join(" ")}`
-          : "";
-        return `### [${escapeMarkdown(project.name)}](${project.url})\n\n${escapeMarkdown(project.description)}${tech}`;
-      }).join("\n\n---\n\n")}\n`
-    : "";
-
-  const contacts = [];
-  if (config.contact.github) contacts.push(`[GitHub](https://github.com/${config.profile.username})`);
-  if (config.contact.website) contacts.push(`[Website](${config.contact.website})`);
-  if (config.contact.linkedin) contacts.push(`[LinkedIn](${config.contact.linkedin})`);
-  if (config.contact.email) contacts.push(`[Email](mailto:${config.contact.email})`);
-
-  const favoritesSection = favoritesMarkdown(config);
+  const stackAlt = Object.entries(config.stack).map(([label, items]) => `${label}: ${items.join(", ")}`).join(". ");
+  const projectLinks = config.projects.flatMap((project) => [
+    `<a href="${escapeXml(project.url)}">${escapeXml(project.name)} ↗</a>`,
+    ...(project.relatedUrl ? [`<a href="${escapeXml(project.relatedUrl)}">Stock analysis ↗</a>`] : [])
+  ]).join(" &nbsp; · &nbsp; ");
+  const extraContacts = [
+    ["Website", config.contact.website],
+    ["LinkedIn", config.contact.linkedin],
+    ["Email", config.contact.email ? `mailto:${config.contact.email}` : ""]
+  ].filter(([, url]) => url).map(([label, url]) => `<a href="${escapeXml(url)}">${label}</a>`).join(" · ");
 
   return `<!-- Generated from profile.config.json by scripts/update-profile.mjs. -->
 <picture>
   <source media="(max-width: 640px)" srcset="./assets/profile-terminal-mobile.svg">
-  <img src="./assets/profile-terminal.svg" width="100%" alt="Terminal profile for ${escapeMarkdown(config.profile.name)}">
+  <img src="./assets/profile-terminal.svg" width="100%" alt="Terminal profile for ${escapeXml(config.profile.name)}">
 </picture>
 
-> ${escapeMarkdown(config.profile.statement)}
+${engineeringPicture("engineering-stack", stackAlt)}
 
-## Core stack
+${engineeringPicture("selected-work", config.projects.map((project) => `${project.name}: ${project.description}`).join(" "))}
 
-| Area | Working set |
-|:--|:--|
-${stackRows}
-${projectSection}${favoritesSection}
-## Connect
+<sub>${projectLinks}</sub>
 
-${contacts.join(" · ")}
-`;
+${engineeringPicture("profile-notes", `${config.profile.name}. ${config.profile.role}, ${config.profile.location}. ${config.profile.statement} ${config.currently.map((row) => `${row.label}: ${row.value}`).join(". ")}`)}
+${favoritesMarkdown(config)}
+<a href="https://github.com/${encodeURIComponent(config.profile.username)}">
+${engineeringPicture("profile-connect", `Connect with ${config.profile.name} on GitHub: @${config.profile.username}`)}
+</a>
+${extraContacts ? `\n${extraContacts}\n` : ""}`;
 }
 
 async function main() {
@@ -515,11 +497,11 @@ async function main() {
   assertConfig(config);
   assertPortrait(portrait);
   await mkdir(assetsDir, { recursive: true });
-  await writeFavoritesAssets(config);
+  await Promise.all([writeFavoritesAssets(config), writeEngineeringAssets(config)]);
 
   if (readmeOnly) {
     await writeFile(readmePath, renderReadme(config), "utf8");
-    console.log("Rendered README and favorites without refreshing profile statistics.");
+    console.log("Rendered README and visual sections without refreshing profile statistics.");
     return;
   }
 
