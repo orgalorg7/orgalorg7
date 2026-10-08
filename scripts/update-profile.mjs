@@ -461,10 +461,6 @@ function renderMobile(config, stats, portrait) {
 
 function renderReadme(config) {
   const stackAlt = Object.entries(config.stack).map(([label, items]) => `${label}: ${items.join(", ")}`).join(". ");
-  const projectLinks = config.projects.flatMap((project) => [
-    `<a href="${escapeXml(project.url)}">${escapeXml(project.name)} ↗</a>`,
-    ...(project.relatedUrl ? [`<a href="${escapeXml(project.relatedUrl)}">Stock analysis ↗</a>`] : [])
-  ]).join(" &nbsp; · &nbsp; ");
   const extraContacts = [
     ["Website", config.contact.website],
     ["LinkedIn", config.contact.linkedin],
@@ -479,11 +475,7 @@ function renderReadme(config) {
 
 ${engineeringPicture("engineering-stack", stackAlt)}
 
-${engineeringPicture("selected-work", config.projects.map((project) => `${project.name}: ${project.description}`).join(" "))}
-
-<sub>${projectLinks}</sub>
-
-${engineeringPicture("profile-notes", `${config.profile.name}. ${config.profile.role}, ${config.profile.location}. ${config.profile.statement} ${config.currently.map((row) => `${row.label}: ${row.value}`).join(". ")}`)}
+${engineeringPicture("profile-notes", `${config.profile.name}. ${config.profile.role}, ${config.profile.location}. ${config.profile.statement}`)}
 ${favoritesMarkdown(config)}
 <a href="https://github.com/${encodeURIComponent(config.profile.username)}">
 ${engineeringPicture("profile-connect", `Connect with ${config.profile.name} on GitHub: @${config.profile.username}`)}

@@ -42,126 +42,52 @@ function heading(number, eyebrow, title, width, mobile, right = "") {
   ${!mobile && right ? text(right, width - 16, 33, 13, { mono: true, fill: C.muted, anchor: "end" }) : ""}`;
 }
 
-function designDiagram(x, y, mobile) {
-  const nodeWidth = mobile ? 90 : 150;
-  const gap = mobile ? 27 : 36;
-  return `<g transform="translate(${x} ${y})">${["BOUNDARIES", "CONTRACTS", "INTERFACES"].map((s, i) => {
-    const left = i * (nodeWidth + gap);
-    return `${rect(left, 0, nodeWidth, 44, "#d5cebc", 2)}
-      ${text(s, left + nodeWidth / 2, 27, mobile ? 9 : 11, { mono: true, fill: C.dark, anchor: "middle", spacing: .5 })}
-      ${i < 2 ? `<path d="M${left + nodeWidth + 5} 22h${gap - 10}m-5-4 5 4-5 4" fill="none" stroke="#a84f37" stroke-width="1.5"/>` : ""}`;
-  }).join("")}</g>`;
+function itemLines(items, limit) {
+  const result = [];
+  for (const item of items) {
+    if (!result.length || result.at(-1).length + item.length + 3 > limit) result.push(item);
+    else result[result.length - 1] += ` · ${item}`;
+  }
+  return result;
 }
 
 function stack(config, mobile) {
   const width = mobile ? 440 : 1200;
-  const rows = [
-    ["Languages", config.stack.Languages],
-    ["Backend", [...config.stack.Backend, "SQLite"]],
-    ["Infrastructure", config.stack.Infrastructure],
-    ["Focus", config.stack.Domains],
-    ["Tools", [...config.stack.Workflow, ...config.stack["Data & labs"].filter((item) => item !== "SQLite")]]
+  const groups = [
+    ["LANGUAGES", config.stack.Languages],
+    ["BACKEND", [...config.stack.Backend, "SQLite"]],
+    ["INFRASTRUCTURE", [...config.stack.Infrastructure, ...config.stack.Workflow]],
+    ["FOCUS", config.stack.Domains]
   ];
-  let body = text("Stack", 16, 36, 24, { weight: 600 });
-  let y = mobile ? 71 : 80;
-  for (const [name, items] of rows) {
-    const values = items.join(" · ");
-    body += text(name, 16, y, mobile ? 13 : 15, { fill: C.muted });
-    if (mobile) {
-      const wrapped = [];
-      for (const item of items) {
-        if (!wrapped.length || wrapped.at(-1).length + item.length + 3 > 37) wrapped.push(item);
-        else wrapped[wrapped.length - 1] += ` · ${item}`;
-      }
-      body += lines(wrapped, 16, y + 25, 18, 24);
-      y += 57 + (wrapped.length - 1) * 24;
-    } else {
-      body += text(values, 178, y, 21);
-      y += 38;
-    }
-  }
-  const height = y + (mobile ? 1 : -12);
-  return shell(width, height, "Tech stack", rows.map(([name, items]) => `${name}: ${items.join(", ")}`).join(". "), body);
-}
-
-function motif(kind, x, y, width, height) {
-  if (kind === "pipeline") {
-    // Schematic of the documented discovery → persistence → export pipeline.
-    return `<g transform="translate(${x} ${y})">
-      ${Array.from({ length: 8 }, (_, i) => `<path d="M0 ${12 + i * 16}Q${width * .25} ${-25 + i * 18} ${width * .52} ${35 + i * 12}T${width} ${12 + i * 16}" fill="none" stroke="#466260" opacity=".55"/>`).join("")}
-      <path d="M35 85H${width - 34}" stroke="${C.orange}" stroke-width="2"/>
-      ${[35, width / 2, width - 34].map((cx, i) => `<circle cx="${cx}" cy="85" r="${i === 0 ? 8 : 5}" fill="${C.orange}" stroke="#172623" stroke-width="4"/>`).join("")}
-      ${text("DISCOVER → STORE → EXPORT", width / 2, height - 9, 10, { mono: true, fill: C.teal, anchor: "middle", spacing: .7 })}
-    </g>`;
-  }
-  return `<g transform="translate(${x} ${y})">
-    ${rect(0, 0, width, height, "#11171b")}
-    ${label("TCP → HTTP/1.1", 18, 29, C.teal, 11)}
-    ${rule(18, 45, width - 36)}
-    ${text("GET /health", 18, 75, 17, { mono: true })}
-    ${text("200 OK", 18, 111, 28, { mono: true, fill: C.orange, weight: 700 })}
-    ${text("ROUTE / STREAM / SHUTDOWN", 18, height - 15, 10, { mono: true, fill: C.muted, spacing: .5 })}
-  </g>`;
-}
-
-function projectRow(p, index, y, mobile) {
-  const width = mobile ? 408 : 1168;
-  const tall = index < 2;
-  const detailLines = mobile ? p.details.flatMap((s) => wrap(s, 40)) : p.details;
-  const motifTop = 111 + detailLines.length * 23 + 12;
-  const height = mobile ? (tall ? motifTop + 184 : Math.max(215, motifTop + 35)) : (tall ? 226 : 202);
-  const x = 16;
-  const fill = index === 0 ? "#172623" : index === 1 ? "#1a222a" : "#181b21";
-  let out = rect(x, y, width, height, fill);
-  out += label(`${String(index + 1).padStart(2, "0")} / ${p.category}`, x + 24, y + 32, index === 0 ? C.teal : C.orange, mobile ? 9 : 11);
-  out += fit(p.name, x + 22, y + (mobile ? 79 : 88), mobile ? 358 : 725, mobile ? 31 : 44);
-  out += lines(detailLines, x + 24, y + (mobile ? 111 : 127), mobile ? 16 : 19, mobile ? 23 : 28, { fill: "#b6bfbe" });
-  out += text(p.tech.join("  /  "), x + 24, y + height - 21, mobile ? 11 : 12, { mono: true, fill: index === 0 ? C.teal : C.orange });
-  if (tall) {
-    out += motif(p.motif, mobile ? x + 24 : 866, y + (mobile ? motifTop : 24), mobile ? 360 : 290, mobile ? 139 : 178);
-  } else if (!mobile) {
-    // Small, code-native symbols keep the lab entries distinct from the main builds.
-    if (p.motif === "network") {
-      out += `<g transform="translate(946 ${y + 51})"><path d="M0 30h65m0 0 60-30m-60 30 60 30m-60-30v50" fill="none" stroke="#596d75" stroke-width="2"/>${[[0,30],[65,30],[125,0],[125,60],[65,80]].map(([cx,cy]) => `<circle cx="${cx}" cy="${cy}" r="7" fill="${C.panel}" stroke="${C.teal}" stroke-width="2"/>`).join("")}</g>`;
-    } else {
-      out += `<g transform="translate(942 ${y + 47})">${text("[ ]", 0, 30, 32, { mono: true, fill: C.orange })}${rule(70, 13, 108, "#53616a")}${rule(70, 29, 82, "#53616a")}${text("[✓]", 0, 77, 32, { mono: true, fill: C.teal })}${rule(70, 60, 108, "#53616a")}${rule(70, 76, 60, "#53616a")}</g>`;
-    }
-  }
-  return { body: out, height };
-}
-
-function work(config, mobile) {
-  const width = mobile ? 440 : 1200;
-  let body = heading("02", "SELECTED PUBLIC WORK", "Built, explored, shared.", width, mobile, "~/projects");
-  let y = 140;
-  config.projects.forEach((p, i) => {
-    const row = projectRow(p, i, y, mobile);
-    body += row.body;
-    y += row.height + 16;
+  let body = text("Stack", 16, 32, 23, { weight: 600 });
+  body += rule(100, 25, width - 116);
+  let bottom = 0;
+  groups.forEach(([name, items], index) => {
+    const x = mobile ? 16 : 16 + (index % 2) * 592;
+    const y = mobile ? 71 + index * 77 : 72 + Math.floor(index / 2) * 79;
+    const values = itemLines(items, mobile ? 38 : 52);
+    body += text(name, x, y, 11, { mono: true, fill: C.muted, spacing: 1 });
+    body += lines(values, x, y + 29, mobile ? 18 : 22, 24);
+    bottom = Math.max(bottom, y + 29 + (values.length - 1) * 24);
   });
-  body += text("Source code & notebooks linked below.", 16, y + 13, mobile ? 13 : 14, { fill: C.muted });
-  return shell(width, y + 33, "Selected projects — Lead Hunter, Rust HTTP server, network labs and data science", config.projects.map((p) => `${p.name}: ${p.description}`).join(" "), body);
+  const extras = config.stack["Data & labs"].filter((item) => item !== "SQLite");
+  body += rule(16, bottom + 25, width - 32);
+  const extraLines = itemLines(extras, mobile ? 41 : 100);
+  body += lines(extraLines, 16, bottom + 51, mobile ? 13 : 15, 21, { fill: C.muted });
+  return shell(width, bottom + 67 + (extraLines.length - 1) * 21, "Tech stack", Object.entries(config.stack).map(([name, items]) => `${name}: ${items.join(", ")}`).join(". "), body);
 }
 
 function notes(config, mobile) {
   const width = mobile ? 440 : 1200;
-  let body = heading("03", "BEHIND THE WORK", `${config.profile.location.split(",")[0]}. Code. Curiosity.`, width, mobile, "~/about");
-  const about = mobile ? config.engineering.aboutMobile : config.engineering.about;
-  body += lines(about, 16, 151, mobile ? 20 : 24, 33, { fill: "#bfc5c4" });
-  if (!mobile) {
-    body += label(config.profile.name.toUpperCase(), 844, 154, C.teal);
-    body += text(`@${config.profile.username}`, 842, 197, 31, { weight: 700, spacing: -1 });
-    body += text(config.profile.role, 844, 227, 16, { fill: C.muted });
-  }
-  const focusY = mobile ? 307 : 280;
-  body += rule(16, focusY - 23, width - 32);
-  config.engineering.focus.forEach((item, i) => {
-    const x = mobile ? 16 : 16 + i * 395;
-    const y = mobile ? focusY + i * 130 : focusY;
-    body += label(item.label, x, y + 12, C.orange);
-    body += lines(item.lines, x - 1, y + 53, mobile ? 27 : 28, 35, { weight: 700, spacing: -.5 });
-  });
-  return shell(width, mobile ? 716 : 402, "About Mohammed Nehad and current focus", `${config.profile.role} in ${config.profile.location}. ${config.profile.statement} ${config.currently.map((r) => `${r.label}: ${r.value}`).join(". ")}`, body);
+  let body = text("About", 16, 32, 23, { weight: 600 });
+  body += rule(100, 25, width - 116);
+  const introduction = `${config.profile.role} in ${config.profile.location}.`;
+  const introLines = wrap(introduction, mobile ? 37 : 100);
+  body += lines(introLines, 16, 69, mobile ? 19 : 22, 27);
+  const descriptionY = 69 + introLines.length * 27 + 3;
+  const description = mobile ? ["Backends, interfaces,", "and geospatial systems."] : ["Backends, interfaces, and geospatial systems."];
+  body += lines(description, 16, descriptionY, mobile ? 18 : 20, 26, { fill: C.muted });
+  return shell(width, descriptionY + (description.length - 1) * 26 + 25, "About " + config.profile.name, `${introduction} ${config.profile.statement}`, body);
 }
 
 function connect(config, mobile) {
@@ -180,7 +106,7 @@ export function engineeringPicture(name, alt) {
 }
 
 export async function writeEngineeringAssets(config) {
-  const renderers = { "engineering-stack": stack, "selected-work": work, "profile-notes": notes, "profile-connect": connect };
+  const renderers = { "engineering-stack": stack, "profile-notes": notes, "profile-connect": connect };
   await Promise.all(Object.entries(renderers).flatMap(([name, render]) => [false, true].map((mobile) =>
     writeFile(path.join(root, `assets/${name}${mobile ? "-mobile" : ""}.svg`), render(config, mobile))
   )));

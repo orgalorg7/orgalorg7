@@ -10,15 +10,8 @@
 </picture>
 
 <picture>
-  <source media="(max-width: 640px)" srcset="./assets/selected-work-mobile.svg">
-  <img src="./assets/selected-work.svg" width="100%" alt="Lead Hunter: A persistent CLI for discovering public businesses, assessing websites, and exporting useful lead data. HTTP server in Rust: An HTTP/1.1 server built on standard TCP types, with routing, middleware, streaming, and bounded workers. Network lab: Packet Tracer projects covering company networks, access-control lists, and intrusion-detection scenarios. Data science notebooks: IBM data-science coursework in Jupyter, including a machine-learning prediction lab and historical stock analysis.">
-</picture>
-
-<sub><a href="https://github.com/orgalorg7/web-scraping-for-business-intelligence">Lead Hunter ↗</a> &nbsp; · &nbsp; <a href="https://github.com/orgalorg7/http-server-in-rust">HTTP server in Rust ↗</a> &nbsp; · &nbsp; <a href="https://github.com/orgalorg7/infra-projects-packet-tracer">Network lab ↗</a> &nbsp; · &nbsp; <a href="https://github.com/orgalorg7/ibm-data-science">Data science notebooks ↗</a> &nbsp; · &nbsp; <a href="https://github.com/orgalorg7/Analyzing-Historical-Stock">Stock analysis ↗</a></sub>
-
-<picture>
   <source media="(max-width: 640px)" srcset="./assets/profile-notes-mobile.svg">
-  <img src="./assets/profile-notes.svg" width="100%" alt="Mohammed Nehad. Independent software engineer, Cairo, Egypt. I design dependable backends, thoughtful interfaces, and geospatial systems. Building: Geospatial data workflows. Refining: Domain boundaries &amp; Go API contracts. Focus: Maps, data &amp; product interfaces">
+  <img src="./assets/profile-notes.svg" width="100%" alt="Mohammed Nehad. Independent software engineer, Cairo, Egypt. I design dependable backends, thoughtful interfaces, and geospatial systems.">
 </picture>
 
 <picture>
