@@ -14,6 +14,16 @@
 | Domains | APIs · Maps · Realtime |
 | Workflow | Git · GitHub |
 
+## On repeat & on screen
+
+`$ cat favorites.conf`
+
+| Favorite | Pick |
+|:--|:--|
+| Album | The Wall — Pink Floyd |
+| Song | Epitaph — King Crimson |
+| Movie | Downfall |
+
 ## Connect
 
 [GitHub](https://github.com/orgalorg7)

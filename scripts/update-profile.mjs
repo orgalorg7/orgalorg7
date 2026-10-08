@@ -485,6 +485,21 @@ function renderReadme(config) {
   if (config.contact.linkedin) contacts.push(`[LinkedIn](${config.contact.linkedin})`);
   if (config.contact.email) contacts.push(`[Email](mailto:${config.contact.email})`);
 
+  const favoriteRows = [
+    ["Album", config.favorites?.album, "artist"],
+    ["Song", config.favorites?.song, "artist"],
+    ["Movie", config.favorites?.movie, "director"]
+  ].filter(([, favorite]) => favorite?.title?.trim())
+    .map(([label, favorite, creditKey]) => {
+      const title = escapeMarkdown(escapeXml(favorite.title));
+      const credit = favorite[creditKey]?.trim();
+      const pick = credit ? `${title} — ${escapeMarkdown(escapeXml(credit))}` : title;
+      return `| ${label} | ${pick} |`;
+    }).join("\n");
+  const favoritesSection = favoriteRows
+    ? `\n## On repeat & on screen\n\n\`$ cat favorites.conf\`\n\n| Favorite | Pick |\n|:--|:--|\n${favoriteRows}\n`
+    : "";
+
   return `<!-- Generated from profile.config.json by scripts/update-profile.mjs. -->
 <picture>
   <source media="(max-width: 640px)" srcset="./assets/profile-terminal-mobile.svg">
@@ -498,7 +513,7 @@ function renderReadme(config) {
 | Area | Working set |
 |:--|:--|
 ${stackRows}
-${projectSection}
+${projectSection}${favoritesSection}
 ## Connect
 
 ${contacts.join(" · ")}

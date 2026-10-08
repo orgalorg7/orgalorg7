@@ -56,6 +56,11 @@
     "website": ""
   },
   "projects": [],
+  "favorites": {
+    "album": { "title": "The Wall", "artist": "Pink Floyd" },
+    "song": { "title": "Epitaph", "artist": "King Crimson" },
+    "movie": { "title": "Downfall", "director": "" }
+  },
   "statsFallback": {
     "repositories": 7,
     "followers": 11,
@@ -66,6 +71,7 @@
   "_help": {
     "contact": "Set github to true to derive it from profile.username. Leave optional contact values empty to hide them.",
     "projects": "Add objects shaped like: { name, description, url, tech: [\"Go\", \"PostgreSQL\"] }. Empty means the section is omitted.",
+    "favorites": "Set album and song title/artist and movie title/director. Credits are optional; entries with an empty title stay hidden.",
     "statsFallback": "Used only for local/offline generation. The scheduled workflow refreshes public values from GitHub."
   }
 }
