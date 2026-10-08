@@ -55,54 +55,33 @@ function designDiagram(x, y, mobile) {
 
 function stack(config, mobile) {
   const width = mobile ? 440 : 1200;
-  const langY = 141;
-  const langHeight = mobile ? 343 : 190;
-  let body = heading("01", "THE ENGINEERING DESK", "Tools with a purpose.", width, mobile, "~/stack");
-  body += rect(16, langY, width - 32, langHeight);
-  body += label("LANGUAGES", 40, langY + 31, C.teal);
-  const langs = config.engineering.languages;
-  langs.forEach((item, i) => {
-    const mobileLast = i === 4;
-    const x = mobile ? 40 + (i % 2) * 198 : 40 + i * 229;
-    const top = mobile ? langY + 64 + Math.floor(i / 2) * 93 : langY + 65;
-    const font = mobile ? 33 : item.name === "TypeScript" ? 36 : 54;
-    body += fit(item.name, x, top + 45, mobile ? 172 : 208, mobileLast ? 33 : font);
-    body += text(item.focus, x, top + 72, 14, { fill: C.muted });
-    if (!mobile && i < langs.length - 1) body += `<path d="M${x + 209} ${langY + 59}v100" stroke="${C.line}"/>`;
-  });
-
-  const designY = mobile ? 504 : 351;
-  const designW = mobile ? 408 : 600;
-  body += rect(16, designY, designW, mobile ? 273 : 296, C.cream);
-  body += label("HOW I THINK / SYSTEM DESIGN", 40, designY + 34, "#68665c", mobile ? 11 : 12);
-  body += lines(wrap(config.engineering.principle, 17), 38, designY + 100, mobile ? 37 : 49, mobile ? 45 : 55, { fill: C.dark, weight: 700, spacing: -1.7 });
-  body += designDiagram(40, designY + (mobile ? 196 : 216), mobile);
-
-  const toolsX = mobile ? 16 : 638;
-  const toolsY = mobile ? 797 : 351;
-  const toolsW = mobile ? 408 : 546;
-  body += rect(toolsX, toolsY, toolsW, 296, "#242220");
-  [
-    ["BACKEND", config.stack.Backend.filter((s) => s !== "Redis").join(" / ")],
-    ["DATA & STATE", ["Redis", "SQLite"].join(" / ")],
-    ["INFRASTRUCTURE", config.stack.Infrastructure.join(" / ")]
-  ].forEach(([name, value], i) => {
-    const y = toolsY + i * 96;
-    body += label(name, toolsX + 24, y + 32, C.orange, 11);
-    body += fit(value, toolsX + 22, y + 72, toolsW - 48, mobile ? 29 : 37);
-    if (i < 2) body += rule(toolsX + 24, y + 93, toolsW - 48, "#3d3833");
-  });
-
-  const bottomY = mobile ? 1124 : 690;
-  body += label("WORKING TERRITORY", 16, bottomY);
-  body += fit(config.stack.Domains.filter((s) => s !== "System design").join(" / "), 14, bottomY + 49, mobile ? 408 : 660, mobile ? 31 : 42);
-  const workflowX = mobile ? 16 : 796;
-  const workflowY = mobile ? bottomY + 101 : bottomY;
-  body += label("DAILY WORKFLOW", workflowX, workflowY, C.teal);
-  body += fit(config.stack.Workflow.join(" / "), workflowX - 2, workflowY + 49, mobile ? 408 : 388, mobile ? 31 : 42);
-  const height = mobile ? 1336 : 790;
-  body += rule(16, height - 29, width - 32);
-  return shell(width, height, "Core stack — languages, system design, backend and infrastructure", Object.entries(config.stack).map(([k, v]) => `${k}: ${v.join(", ")}`).join(". "), body);
+  const rows = [
+    ["Languages", config.stack.Languages],
+    ["Backend", [...config.stack.Backend, "SQLite"]],
+    ["Infrastructure", config.stack.Infrastructure],
+    ["Focus", config.stack.Domains],
+    ["Tools", [...config.stack.Workflow, ...config.stack["Data & labs"].filter((item) => item !== "SQLite")]]
+  ];
+  let body = text("Stack", 16, 36, 24, { weight: 600 });
+  let y = mobile ? 71 : 80;
+  for (const [name, items] of rows) {
+    const values = items.join(" · ");
+    body += text(name, 16, y, mobile ? 13 : 15, { fill: C.muted });
+    if (mobile) {
+      const wrapped = [];
+      for (const item of items) {
+        if (!wrapped.length || wrapped.at(-1).length + item.length + 3 > 37) wrapped.push(item);
+        else wrapped[wrapped.length - 1] += ` · ${item}`;
+      }
+      body += lines(wrapped, 16, y + 25, 18, 24);
+      y += 57 + (wrapped.length - 1) * 24;
+    } else {
+      body += text(values, 178, y, 21);
+      y += 38;
+    }
+  }
+  const height = y + (mobile ? 1 : -12);
+  return shell(width, height, "Tech stack", rows.map(([name, items]) => `${name}: ${items.join(", ")}`).join(". "), body);
 }
 
 function motif(kind, x, y, width, height) {
