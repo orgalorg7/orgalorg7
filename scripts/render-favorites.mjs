@@ -1,6 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { lightInk, lightLine, lightModeCss, lightMuted, lightPage } from "./theme.mjs";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ink = "#ede8dd";
@@ -32,14 +33,34 @@ function vinyl(cx, cy, radius) {
   const grooves = Array.from({ length: 24 }, (_, i) =>
     `<circle cx="${cx}" cy="${cy}" r="${(radius * (0.4 + i * 0.024)).toFixed(2)}" fill="none" stroke="${i % 3 ? "#30302d" : "#45433d"}" stroke-width=".65"/>`
   ).join("");
-  return `<circle cx="${cx}" cy="${cy}" r="${radius}" fill="url(#vinyl)" stroke="#34342e"/>
+  // The label and its off-centre marks spin with the record; the glare stays put like a real reflection.
+  return `<g class="spin">
+    <circle cx="${cx}" cy="${cy}" r="${radius}" fill="url(#vinyl)" stroke="#34342e"/>
     ${grooves}
     <circle cx="${cx}" cy="${cy}" r="${radius * 0.29}" fill="#b94d37"/>
     <circle cx="${cx}" cy="${cy}" r="${radius * 0.22}" fill="none" stroke="#e48a64" stroke-width=".7"/>
     ${text("SIDE A", cx, cy - 9, 9, { fill: "#f5ddbd", family: "mono", anchor: "middle", spacing: 2 })}
+    ${text("33⅓ RPM", cx, cy + 17, 7, { fill: "#f5ddbd", family: "mono", anchor: "middle", spacing: 1.5 })}
+    <path d="M${cx - radius * 0.62} ${cy + radius * 0.5}A${radius * 0.8} ${radius * 0.8} 0 0 1 ${cx - radius * 0.79} ${cy + radius * 0.12}" fill="none" stroke="#ffffff" opacity=".12" stroke-width="3" stroke-linecap="round"/>
     <circle cx="${cx}" cy="${cy}" r="4" fill="#e8e0d0"/>
+  </g>
     <path d="M${cx - radius * 0.8} ${cy - radius * 0.45}L${cx - radius * 0.32} ${cy - radius * 0.12}M${cx + radius * 0.32} ${cy + radius * 0.12}L${cx + radius * 0.8} ${cy + radius * 0.45}" stroke="#ffffff" opacity=".07" stroke-width="18"/>
+    ${tonearm(cx, cy, radius)}
   `;
+}
+
+function tonearm(cx, cy, radius) {
+  const pivotX = cx + radius * 0.98;
+  const pivotY = cy - radius * 0.95;
+  const headX = cx + radius * 0.42;
+  const headY = cy + radius * 0.38;
+  const angle = Math.atan2(headY - pivotY, headX - pivotX) * 180 / Math.PI;
+  return `<g aria-hidden="true">
+    <circle cx="${pivotX}" cy="${pivotY}" r="${radius * 0.11}" fill="#c9c2b1" stroke="#8d8676"/>
+    <circle cx="${pivotX}" cy="${pivotY}" r="${radius * 0.045}" fill="#5b574d"/>
+    <path d="M${pivotX} ${pivotY}L${headX} ${headY}" stroke="#d8d1bf" stroke-width="${(radius * 0.03).toFixed(2)}" stroke-linecap="round"/>
+    <rect x="${headX - radius * 0.05}" y="${headY - radius * 0.035}" width="${radius * 0.13}" height="${radius * 0.07}" rx="2" fill="#3a3832" transform="rotate(${angle.toFixed(1)} ${headX} ${headY})"/>
+  </g>`;
 }
 
 function albumPanel(item, image, x, y, width, mobile) {
@@ -71,7 +92,9 @@ function songPanel(item, image, x, y, width, mobile) {
   const titleSize = mobile ? 38 : 45;
   const bars = Array.from({ length: mobile ? 25 : 35 }, (_, i) => {
     const h = 8 + Math.round(27 * Math.abs(Math.sin(i * 1.77) * Math.cos(i * 0.39)));
-    return `<rect x="${left + i * 7}" y="${205 - h}" width="3" height="${h}" rx="1.5" fill="${i % 5 === 0 ? "#eac4ab" : accent}" opacity="${i % 3 === 0 ? ".6" : "1"}"/>`;
+    // Uneven durations and negative delays keep the bars from pulsing in lockstep.
+    const motion = `animation-duration:${(0.45 + ((i * 37) % 9) / 12).toFixed(2)}s;animation-delay:-${((i * 0.29) % 1.3).toFixed(2)}s`;
+    return `<rect x="${left + i * 7}" y="${205 - h}" width="3" height="${h}" rx="1.5" fill="${i % 5 === 0 ? "#eac4ab" : accent}" opacity="${i % 3 === 0 ? ".6" : "1"}" class="eq" style="${motion}"/>`;
   }).join("");
   return `<g transform="translate(${x} ${y})">
     <rect width="${width}" height="249" rx="5" fill="#292322"/>
@@ -96,11 +119,35 @@ function moviePanel(item, image, x, y, width, mobile) {
     <path d="M${left} 170h${width - left - 28}" stroke="#374348"/>
     ${item.director ? text("DIRECTED BY", left, 196, 10, { family: "mono", fill: "#8a9d9f", spacing: 1.4 }) : ""}
     ${text(item.director, left, 221, mobile ? 16 : 18, { fill: "#c7cecc" })}
-    ${Array.from({ length: 14 }, (_, i) => `<rect x="${width - 9}" y="${11 + i * 17}" width="4" height="8" rx="1" fill="#364044"/>`).join("")}
+    <clipPath id="film-edge"><rect width="${width}" height="249" rx="5"/></clipPath>
+    <g clip-path="url(#film-edge)"><g class="reel">
+      ${Array.from({ length: 16 }, (_, i) => `<rect x="${width - 9}" y="${11 + (i - 1) * 17}" width="4" height="8" rx="1" fill="#364044"/>`).join("")}
+    </g></g>
   </g>`;
 }
 
-function render(favorites, images, mobile) {
+// The Wall's crossed hammers, one pair per public repository, marching through the footer.
+function hammer(angle, fill) {
+  return `<g transform="rotate(${angle})"><rect x="-1.1" y="-5" width="2.2" height="14" rx="1" fill="${fill}"/><rect x="-5.5" y="-8.5" width="11" height="4.2" rx=".6" fill="${fill}"/></g>`;
+}
+
+function hammers(count, x0, x1, y, mobile) {
+  if (!count) return "";
+  const spacing = mobile ? 24 : 40;
+  const scale = mobile ? 0.9 : 1.25;
+  const row = count * spacing;
+  const travel = x1 - x0 + row;
+  const marchers = Array.from({ length: count }, (_, i) =>
+    `<g transform="translate(${(x0 - row + i * spacing + spacing / 2).toFixed(1)} ${y}) scale(${scale})"><g class="stomp" style="animation-delay:${i % 2 ? "-.28" : "0"}s">${hammer(-38, "#c3352b")}${hammer(38, "#e2483a")}</g></g>`
+  ).join("");
+  return `<defs>
+    <linearGradient id="march-fade" x1="0" x2="1"><stop offset="0" stop-color="#000"/><stop offset=".14" stop-color="#fff"/><stop offset=".86" stop-color="#fff"/><stop offset="1" stop-color="#000"/></linearGradient>
+    <mask id="march-mask" maskUnits="userSpaceOnUse" x="${x0}" y="${y - 16}" width="${x1 - x0}" height="32"><rect x="${x0}" y="${y - 16}" width="${x1 - x0}" height="32" fill="url(#march-fade)"/></mask>
+  </defs>
+  <g mask="url(#march-mask)" aria-hidden="true"><g class="march" style="--travel:${travel.toFixed(0)}px;animation-duration:${(travel / 42).toFixed(1)}s">${marchers}</g></g>`;
+}
+
+function render(favorites, images, mobile, repoCount) {
   const width = mobile ? 440 : 1200;
   const height = mobile ? 1185 : 714;
   const { album, song, movie } = favorites;
@@ -113,6 +160,18 @@ function render(favorites, images, mobile) {
   <style>
     .sans { font-family: Arial, Helvetica, sans-serif; }
     .mono { font-family: "Liberation Mono", Consolas, monospace; }
+    .spin { transform-box: fill-box; transform-origin: center; animation: spin 1.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .eq { transform-box: fill-box; transform-origin: 50% 100%; animation: eq .9s ease-in-out infinite alternate; }
+    @keyframes eq { from { transform: scaleY(.2); } to { transform: scaleY(1); } }
+    .reel { animation: reel .7s linear infinite; }
+    @keyframes reel { from { transform: translateY(-17px); } to { transform: translateY(0); } }
+    .march { animation: march linear infinite; }
+    @keyframes march { to { transform: translateX(var(--travel)); } }
+    .stomp { transform-box: fill-box; transform-origin: 50% 100%; animation: stomp .56s steps(1, end) infinite; }
+    @keyframes stomp { 50% { transform: translateY(-2.5px) rotate(-4deg); } }
+    @media (prefers-reduced-motion: reduce) { .spin, .eq, .reel, .stomp { animation: none; } .march { animation: none; transform: translateX(calc(var(--travel) * .6)); } }
+    ${lightModeCss({ "#0d1117": lightPage, [ink]: lightInk, [muted]: lightMuted, "#30363d": lightLine, [accent]: "#bc4c00" }, { scope: "svg > " })}
   </style>
   <rect width="${width}" height="${height}" rx="8" fill="#0d1117"/>
   <path d="M16 1h${width - 32}" stroke="#30363d"/>
@@ -124,6 +183,7 @@ function render(favorites, images, mobile) {
   ${songPanel(song, images.song, mobile ? 16 : 678, mobile ? 603 : 135, mobile ? 408 : 506, mobile)}
   ${moviePanel(movie, images.movie, mobile ? 16 : 678, mobile ? 868 : 400, mobile ? 408 : 506, mobile)}
   <path d="M16 ${height - 42}h${width - 32}" stroke="#30363d"/>
+  ${hammers(repoCount, mobile ? 148 : 200, mobile ? 286 : 960, height - 19, mobile)}
   ${text("END OF SIDE A", 16, height - 15, 11, { family: "mono", fill: muted, spacing: 2 })}
   ${text("PERSONAL ARCHIVE / 003", width - 16, height - 15, mobile ? 10 : 12, { family: "mono", fill: muted, anchor: "end" })}
 </svg>\n`;
@@ -155,7 +215,7 @@ export function favoritesMarkdown(config) {
   return `\n<picture>\n  <source media="(max-width: 640px)" srcset="./assets/favorites-mobile.svg">\n  <img src="./assets/favorites.svg" width="100%" alt="${alt}">\n</picture>\n\n<sub>${links}</sub>\n`;
 }
 
-export async function writeFavoritesAssets(config) {
+export async function writeFavoritesAssets(config, repoCount = config.statsFallback?.repositories) {
   if (!hasFavorites(config)) return;
   const images = Object.fromEntries(await Promise.all(["album", "song", "movie"].map(async (key) => {
     const filename = config.favorites[key].artwork;
@@ -164,7 +224,7 @@ export async function writeFavoritesAssets(config) {
     return [key, `data:image/jpeg;base64,${bytes.toString("base64")}`];
   })));
   await Promise.all([
-    writeFile(path.join(rootDir, "assets/favorites.svg"), render(config.favorites, images, false)),
-    writeFile(path.join(rootDir, "assets/favorites-mobile.svg"), render(config.favorites, images, true))
+    writeFile(path.join(rootDir, "assets/favorites.svg"), render(config.favorites, images, false, repoCount)),
+    writeFile(path.join(rootDir, "assets/favorites-mobile.svg"), render(config.favorites, images, true, repoCount))
   ]);
 }

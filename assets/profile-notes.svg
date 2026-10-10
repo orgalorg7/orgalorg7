@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="124" viewBox="0 0 1200 124" role="img" aria-labelledby="title desc">
 <title id="title">About Mohammed Nehad</title><desc id="desc">Independent software engineer in Cairo, Egypt. I design dependable backends, thoughtful interfaces, and geospatial systems.</desc>
-<style>.sans{font-family:Arial,Helvetica,sans-serif}.mono{font-family:"Liberation Mono",Consolas,monospace}</style>
+<style>.sans{font-family:Arial,Helvetica,sans-serif}.mono{font-family:"Liberation Mono",Consolas,monospace}
+@media (prefers-color-scheme: light){[fill="#0d1117"]{fill:#ffffff}[stroke="#0d1117"]{stroke:#ffffff}[fill="#ede8dd"]{fill:#1f2328}[stroke="#ede8dd"]{stroke:#1f2328}[fill="#a4a39e"]{fill:#59636e}[stroke="#a4a39e"]{stroke:#59636e}[fill="#30363d"]{fill:#d1d9e0}[stroke="#30363d"]{stroke:#d1d9e0}[fill="#ee956e"]{fill:#bc4c00}[stroke="#ee956e"]{stroke:#bc4c00}[fill="#9bc7c9"]{fill:#1b7c83}[stroke="#9bc7c9"]{stroke:#1b7c83}}</style>
 <rect x="0" y="0" width="1200" height="124" rx="8" fill="#0d1117"/><text x="16" y="32" font-size="23" class="sans" fill="#ede8dd" font-weight="600" letter-spacing="0" text-anchor="start">About</text><path d="M100 25h1084" stroke="#30363d"/><text x="16" y="69" font-size="22" class="sans" fill="#ede8dd" font-weight="400" letter-spacing="0" text-anchor="start">Independent software engineer in Cairo, Egypt.</text><text x="16" y="99" font-size="20" class="sans" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="start">Backends, interfaces, and geospatial systems.</text>
 </svg>

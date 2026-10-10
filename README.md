@@ -10,6 +10,11 @@
 </picture>
 
 <picture>
+  <source media="(max-width: 640px)" srcset="./assets/language-prism-mobile.svg">
+  <img src="./assets/language-prism.svg" width="100%" alt="The dark side of the code: public code split by language, drawn as a beam of light through a prism">
+</picture>
+
+<picture>
   <source media="(max-width: 640px)" srcset="./assets/profile-notes-mobile.svg">
   <img src="./assets/profile-notes.svg" width="100%" alt="Mohammed Nehad. Independent software engineer, Cairo, Egypt. I design dependable backends, thoughtful interfaces, and geospatial systems.">
 </picture>

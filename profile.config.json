@@ -10,6 +10,12 @@
     "title": "profile.sh",
     "path": "~/orgalorg7/profile",
     "command": "./profile --verbose",
+    "timeZone": "Africa/Cairo",
+    "easterEgg": {
+      "after": 25,
+      "command": "sudo make coffee",
+      "reply": "coffee is ready"
+    },
     "ascii": [
       "                    .",
       "             ..:-----=-:::.",
@@ -187,19 +193,82 @@
       "url": "https://en.wikipedia.org/wiki/Downfall_(2004_film)"
     }
   },
+  "nowPlaying": [
+    {
+      "title": "Comfortably Numb",
+      "artist": "Pink Floyd"
+    },
+    {
+      "title": "Starless",
+      "artist": "King Crimson"
+    },
+    {
+      "title": "Shine On You Crazy Diamond",
+      "artist": "Pink Floyd"
+    },
+    {
+      "title": "In the Court of the Crimson King",
+      "artist": "King Crimson"
+    },
+    {
+      "title": "Time",
+      "artist": "Pink Floyd"
+    },
+    {
+      "title": "Close to the Edge",
+      "artist": "Yes"
+    },
+    {
+      "title": "Firth of Fifth",
+      "artist": "Genesis"
+    },
+    {
+      "title": "Wish You Were Here",
+      "artist": "Pink Floyd"
+    },
+    {
+      "title": "21st Century Schizoid Man",
+      "artist": "King Crimson"
+    },
+    {
+      "title": "Echoes",
+      "artist": "Pink Floyd"
+    },
+    {
+      "title": "Roundabout",
+      "artist": "Yes"
+    },
+    {
+      "title": "Dogs",
+      "artist": "Pink Floyd"
+    }
+  ],
   "statsFallback": {
-    "repositories": 7,
-    "followers": 11,
+    "repositories": 8,
+    "followers": 15,
     "stars": 0,
     "commits": 180,
-    "contributions": null
+    "contributions": null,
+    "createdAt": "2023-06-19T14:36:34Z",
+    "languages": {
+      "Python": 323712,
+      "Jupyter Notebook": 232231,
+      "Rust": 123131,
+      "Assembly": 107904,
+      "Makefile": 2406,
+      "Shell": 1548,
+      "HTML": 248
+    },
+    "languageRepos": 5
   },
   "_help": {
     "contact": "Set github to true to derive it from profile.username. Leave optional contact values empty to hide them.",
     "projects": "Selected public work. Each entry has name, category, description, details (short lines), url, tech, and motif. RelatedUrl optionally links supporting work.",
     "favorites": "Set album/song title and artist, movie title and director, year, local JPEG artwork path and optional HTTPS url. All three titles enable the illustrated shelf. Run node scripts/update-profile.mjs --readme-only to regenerate without changing statistics.",
     "statsFallback": "Used only for local/offline generation. The scheduled workflow refreshes public values from GitHub.",
-    "engineering": "Editorial stack and focus panels. Keep language focuses and current-work copy grounded in your own experience. Public project descriptions are sourced from the linked repository READMEs."
+    "engineering": "Editorial stack and focus panels. Keep language focuses and current-work copy grounded in your own experience. Public project descriptions are sourced from the linked repository READMEs.",
+    "nowPlaying": "Tracks for the terminal NOW PLAYING line. One is picked per UTC day; the nightly workflow rotates it. Remove the list to hide the line.",
+    "terminal": "timeZone sets the title-bar clock (shows the time of the last nightly sync). easterEgg runs a joke command at the idle prompt after `after` seconds; remove it to disable."
   },
   "engineering": {
     "languages": [

@@ -1,6 +1,7 @@
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { lightInk, lightLine, lightModeCss, lightMuted, lightPage } from "./theme.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const C = { page: "#0d1117", ink: "#ede8dd", muted: "#a4a39e", orange: "#ee956e", line: "#30363d", teal: "#9bc7c9", panel: "#171f22", cream: "#e8e2d3", dark: "#282920" };
@@ -30,7 +31,8 @@ function fit(s, x, y, width, size = 40, options = {}) {
 function shell(width, height, title, description, body) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title desc">
 <title id="title">${xml(title)}</title><desc id="desc">${xml(description)}</desc>
-<style>.sans{font-family:Arial,Helvetica,sans-serif}.mono{font-family:"Liberation Mono",Consolas,monospace}</style>
+<style>.sans{font-family:Arial,Helvetica,sans-serif}.mono{font-family:"Liberation Mono",Consolas,monospace}
+${lightModeCss({ [C.page]: lightPage, [C.ink]: lightInk, [C.muted]: lightMuted, [C.line]: lightLine, [C.orange]: "#bc4c00", [C.teal]: "#1b7c83" })}</style>
 ${rect(0, 0, width, height, C.page, 8)}${body}
 </svg>\n`;
 }

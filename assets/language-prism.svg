@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="514" viewBox="0 0 1200 514" role="img" aria-labelledby="title desc">
+<title id="title">The dark side of the code</title><desc id="desc">Languages by bytes across 5 public repositories: Python 40.6%, Jupyter 29.5%, Rust 15.6%, Assembly 13.7%.</desc>
+<style>
+  .sans{font-family:Arial,Helvetica,sans-serif}.mono{font-family:"Liberation Mono",Consolas,monospace}
+  .ray-in{animation:ray-in 1s ease-out .2s forwards}
+  @keyframes ray-in{to{stroke-dashoffset:0}}
+  .photons{opacity:0;animation:flow 1.1s linear infinite,fade .5s ease-out 1.1s forwards}
+  @keyframes flow{to{stroke-dashoffset:-48}}
+  @keyframes fade{to{opacity:.9}}
+  .fade-late{opacity:0;animation:fade-inner .4s ease-out 1.1s forwards}
+  @keyframes fade-inner{to{opacity:.22}}
+  .shimmer{animation:shimmer 2.8s ease-in-out infinite alternate}
+  @keyframes shimmer{from{opacity:.72}to{opacity:1}}
+  .pulse{animation:pulse 3.2s ease-in-out infinite alternate}
+  @keyframes pulse{from{opacity:.15}to{opacity:.6}}
+  .twinkle{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s ease-in-out infinite alternate}
+  @keyframes twinkle{from{opacity:.4;transform:scale(.6)}to{opacity:1;transform:scale(1.5)}}
+  @media (prefers-reduced-motion:reduce){.ray-in,.photons,.fade-late,.shimmer,.pulse,.twinkle{animation:none}.ray-in{stroke-dashoffset:0}.photons{display:none}.fade-late{opacity:.22}}
+  @media (prefers-color-scheme: light){svg > [fill="#0d1117"]{fill:#ffffff}svg > [stroke="#0d1117"]{stroke:#ffffff}svg > [fill="#ede8dd"]{fill:#1f2328}svg > [stroke="#ede8dd"]{stroke:#1f2328}svg > [fill="#a4a39e"]{fill:#59636e}svg > [stroke="#a4a39e"]{stroke:#59636e}svg > [fill="#30363d"]{fill:#d1d9e0}svg > [stroke="#30363d"]{stroke:#d1d9e0}svg > [fill="#ee956e"]{fill:#bc4c00}svg > [stroke="#ee956e"]{stroke:#bc4c00}}
+</style>
+<rect width="1200" height="514" rx="8" fill="#0d1117"/>
+<path d="M16 1h1168" stroke="#30363d"/>
+<text x="16" y="34" font-size="12" class="mono" fill="#ee956e" font-weight="400" letter-spacing="1.5" text-anchor="start">05 / SPECTRUM</text>
+<text x="1184" y="33" font-size="13" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">~/dark-side</text>
+<text x="14" y="100" font-size="56" class="sans" fill="#ede8dd" font-weight="700" letter-spacing="-2.2" text-anchor="start">The dark side of the code.</text>
+<g transform="translate(16 128)"><rect width="1168" height="340" rx="5" fill="#050608"/></g>
+<defs>
+    <linearGradient id="p-glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".09"/><stop offset="1" stop-color="#ffffff" stop-opacity=".02"/>
+    </linearGradient>
+    <filter id="p-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
+    <clipPath id="p-fan"><rect x="560.224" y="148" width="605.776" height="300">
+      <animate attributeName="width" values="0;0;605.776" keyTimes="0;.5;1" dur="2.4s" fill="freeze"/>
+    </rect></clipPath>
+  </defs>
+  <path d="M52.0 382.0L407.0 310.0" stroke="#f0f6fc" stroke-width="3" stroke-linecap="round" class="ray-in" style="stroke-dasharray:362.2;stroke-dashoffset:362.2"/>
+  <path d="M52.0 382.0L407.0 310.0" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 22" class="photons"/>
+  <path d="M407.0 310.0L560.224 287.2V299.2Z" fill="#ffffff" opacity=".22" class="fade-late"/>
+  <g clip-path="url(#p-fan)">
+    <path d="M560.224 287.2L966 208.0V288.4L560.224 291.5Z" fill="#e8423f" class="shimmer" style="animation-delay:-0.00s"/>
+    <path d="M560.224 291.5L966 288.4V351.1L560.224 294.9Z" fill="#f6d743" class="shimmer" style="animation-delay:-0.55s"/>
+    <path d="M560.224 294.9L966 351.1V391.7L560.224 297.1Z" fill="#4fc263" class="shimmer" style="animation-delay:-1.10s"/>
+    <path d="M560.224 297.1L966 391.7V429.1L560.224 299.2Z" fill="#8e5bd8" class="shimmer" style="animation-delay:-1.65s"/>
+    <text x="984" y="253.21618292393143" font-size="16" class="sans" fill="#e8423f" font-weight="700" letter-spacing="0" text-anchor="start">Python</text>
+    <text x="1156" y="253.21618292393143" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">41%</text>
+    <text x="984" y="324.7866368854365" font-size="16" class="sans" fill="#f6d743" font-weight="700" letter-spacing="0" text-anchor="start">Jupyter</text>
+    <text x="1156" y="324.7866368854365" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">30%</text>
+    <text x="984" y="376.41550411011474" font-size="16" class="sans" fill="#4fc263" font-weight="700" letter-spacing="0" text-anchor="start">Rust</text>
+    <text x="1156" y="376.41550411011474" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">16%</text>
+    <text x="984" y="415.4183151007484" font-size="16" class="sans" fill="#8e5bd8" font-weight="700" letter-spacing="0" text-anchor="start">Assembly</text>
+    <text x="1156" y="415.4183151007484" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">14%</text>
+  </g>
+  <path d="M488.8 178.0L340.0 418.0L637.6 418.0Z" fill="none" stroke="#f0f6fc" stroke-width="5" filter="url(#p-glow)" class="pulse"/>
+  <path d="M488.8 178.0L340.0 418.0L637.6 418.0Z" fill="url(#p-glass)" stroke="#f0f6fc" stroke-width="2.2" stroke-linejoin="round"/>
+  <circle cx="560.224" cy="293.2" r="3" fill="#ffffff" class="twinkle"/>
+<text x="16" y="498" font-size="12" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="1" text-anchor="start">5 public repos · measured in bytes · refreshed nightly</text>
+<text x="1184" y="498" font-size="14" class="sans" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">A beam of code. A spectrum of languages.</text>
+</svg>
