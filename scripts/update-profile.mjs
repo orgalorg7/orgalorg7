@@ -266,7 +266,7 @@ function svgShell({ width, height, title, chromeTitle, description, content }) {
     .glitch { animation: glitch 7s steps(1, end) infinite; }
     @keyframes glitch { 0%, 90%, 92.5%, 95.5%, 100% { transform: none; } 90.8% { transform: translateX(var(--gx)); } 94% { transform: translateX(calc(var(--gx) * -.6)); } }
     .rgb { animation: rgb 7s steps(1, end) infinite; }
-    @keyframes rgb { 0%, 90%, 95.5%, 100% { filter: url(#crt-glow); } 90.5%, 94% { filter: url(#crt-glow) drop-shadow(-3px 0 rgba(255, 40, 90, .85)) drop-shadow(3px 0 rgba(40, 220, 255, .85)); } }
+    @keyframes rgb { 0%, 90%, 95.5%, 100% { filter: none; } 90.5%, 94% { filter: drop-shadow(-3px 0 rgba(255, 40, 90, .85)) drop-shadow(3px 0 rgba(40, 220, 255, .85)); } }
     .tear { opacity: 0; animation: tear 7s steps(1, end) infinite; }
     @keyframes tear { 0%, 91.6%, 93.6%, 95%, 100% { opacity: 0; } 90.4% { opacity: .75; } 94% { opacity: .5; } }
     @media (prefers-reduced-motion: reduce) { .boot, .blink, .eq, .sun, .glitch, .rgb, .tear { animation: none; } .steam { animation: none; opacity: .6; } .beam, .bios, .tear { display: none; } }
@@ -499,17 +499,13 @@ function syncClock(config, { cx, y, now = new Date() }) {
   <text x="${cx + 4}" y="${y}" text-anchor="middle" class="secondary" font-size="14">${escapeXml(label)}</text>`;
 }
 
-// Scanlines, a soft glow, and a slow sweeping beam make the portrait read as a warm CRT.
+// Scanlines and a slow sweeping beam make the portrait read as a warm CRT. There is deliberately
+// no always-on blur filter: re-blurring thousands of glyphs every animation frame made the card sluggish.
 function crtPortrait(portrait, box, start) {
   const { x, y, width, height } = box;
   const beamHeight = 70;
   const glitchAt = start + glitchAfterPortrait;
   return `<defs>
-    <filter id="crt-glow" x="-5%" y="-5%" width="110%" height="110%">
-      <feGaussianBlur stdDeviation="2.2" result="blur"/>
-      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 .55 0" result="halo"/>
-      <feMerge><feMergeNode in="halo"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
     <pattern id="scanlines" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="1.6" fill="#000" opacity=".28"/></pattern>
     <linearGradient id="beam-fill" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="${palette.cyan}" stop-opacity="0"/>
@@ -519,7 +515,8 @@ function crtPortrait(portrait, box, start) {
     <clipPath id="crt-screen"><rect x="${x}" y="${y}" width="${width}" height="${height}"/></clipPath>
   </defs>
   <rect x="${x - 6}" y="${y - 6}" width="${width + 12}" height="${height + 12}" rx="8" fill="${palette.card}" class="screen"/>
-  <g filter="url(#crt-glow)" class="rgb" style="animation-delay:${glitchAt.toFixed(2)}s">
+  ${portrait.underlay ? `<image href="${portrait.underlay}" x="${x}" y="${y}" width="${width}" height="${height}" opacity=".35" preserveAspectRatio="none" aria-hidden="true"/>` : ""}
+  <g class="rgb" style="animation-delay:${glitchAt.toFixed(2)}s">
     ${portraitText(portrait, box, start, glitchAt)}
   </g>
   <g clip-path="url(#crt-screen)" aria-hidden="true">
@@ -533,10 +530,14 @@ function crtPortrait(portrait, box, start) {
 // Horizontal bands of rows slip sideways by these fractions of the portrait width during a glitch.
 const glitchShifts = [0, 0.035, -0.025, 0, 0.055, -0.04, 0.015, 0];
 
+// Rows reveal in small blocks rather than one by one: far fewer concurrent animations to composite.
+const revealRowsPerBlock = 6;
+
 function portraitText(portrait, { x, y, width, height }, revealAt = 0, glitchAt = null) {
   const cellWidth = width / portrait.columns;
   const lineHeight = height / portrait.rows;
   const fontSize = cellWidth / 0.6;
+  // Monospace glyphs advance 0.6em, so each run is placed by x alone; no per-glyph textLength fitting.
   const rows = portrait.lines.map((line, rowIndex) => {
     const runs = [];
     let start = 0;
@@ -546,22 +547,30 @@ function portraitText(portrait, { x, y, width, height }, revealAt = 0, glitchAt 
       while (end < line.chars.length && line.colors[end] === colorKey) end += 1;
       const color = portrait.palette[Number(colorKey)] ?? palette.secondary;
       const chars = line.chars.slice(start, end);
+      const lead = chars.length - chars.trimStart().length;
       if (chars.trim()) {
-        runs.push(`<tspan x="${(x + start * cellWidth).toFixed(3)}" fill="${escapeXml(color)}" textLength="${((end - start) * cellWidth).toFixed(3)}" lengthAdjust="spacingAndGlyphs">${escapeXml(chars)}</tspan>`);
+        runs.push(`<tspan x="${(x + (start + lead) * cellWidth).toFixed(2)}" fill="${escapeXml(color)}">${escapeXml(chars.trim())}</tspan>`);
       }
       start = end;
     }
-    const delay = (revealAt + rowIndex * 0.018).toFixed(3);
-    return `<text y="${(y + rowIndex * lineHeight + fontSize * 0.8).toFixed(3)}" class="boot" style="animation-delay:${delay}s" font-family="'Liberation Mono', 'Courier New', monospace" font-size="${fontSize.toFixed(3)}" font-weight="700" xml:space="preserve">${runs.join("")}</text>`;
+    return `<text y="${(y + rowIndex * lineHeight + fontSize * 0.8).toFixed(2)}">${runs.join("")}</text>`;
   });
-  if (glitchAt == null) return rows.join("\n    ");
-  const bandSize = Math.ceil(rows.length / glitchShifts.length);
-  return glitchShifts.map((shift, band) => {
-    const content = rows.slice(band * bandSize, (band + 1) * bandSize).join("\n    ");
+  const blocks = [];
+  for (let first = 0; first < rows.length; first += revealRowsPerBlock) {
+    // Reveal the whole portrait over ~1.7s regardless of its row count.
+    const delay = (revealAt + (first / rows.length) * 1.7).toFixed(3);
+    blocks.push(`<g class="boot" style="animation-delay:${delay}s">${rows.slice(first, first + revealRowsPerBlock).join("")}</g>`);
+  }
+  const font = `font-family="'Liberation Mono', 'Courier New', monospace" font-size="${fontSize.toFixed(3)}" font-weight="700" xml:space="preserve"`;
+  if (glitchAt == null) return `<g ${font}>${blocks.join("\n    ")}</g>`;
+  const bandSize = Math.ceil(blocks.length / glitchShifts.length);
+  const bands = glitchShifts.map((shift, band) => {
+    const content = blocks.slice(band * bandSize, (band + 1) * bandSize).join("\n    ");
     return shift
       ? `<g class="glitch" style="--gx:${(shift * width).toFixed(1)}px;animation-delay:${glitchAt.toFixed(2)}s">${content}</g>`
       : content;
-  }).join("\n    ");
+  });
+  return `<g ${font}>${bands.join("\n    ")}</g>`;
 }
 
 function renderDesktop(config, stats, portrait) {

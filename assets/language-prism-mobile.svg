@@ -43,12 +43,12 @@
     <path d="M212.51135999999997 225.6L406 270.8V283.9L212.51135999999997 226.7Z" fill="#4fc263" class="shimmer" style="animation-delay:-1.65s"/>
     <path d="M212.51135999999997 226.7L406 283.9V296.7L212.51135999999997 227.8Z" fill="#3b8eea" class="shimmer" style="animation-delay:-2.20s"/>
     <path d="M212.51135999999997 227.8L406 296.7V310.5L212.51135999999997 228.9Z" fill="#8e5bd8" class="shimmer" style="animation-delay:-2.75s"/>
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
   </g>
   <path d="M166.8 149.2L71.6 302.8L262.0 302.8Z" fill="none" stroke="#f0f6fc" stroke-width="5" filter="url(#p-glow)" class="pulse"/>
   <path d="M166.8 149.2L71.6 302.8L262.0 302.8Z" fill="url(#p-glass)" stroke="#f0f6fc" stroke-width="2.2" stroke-linejoin="round"/>
