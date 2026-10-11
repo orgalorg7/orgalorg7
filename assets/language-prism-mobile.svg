@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="440" height="512" viewBox="0 0 440 512" role="img" aria-labelledby="title desc">
-<title id="title">The dark side of the code</title><desc id="desc">Languages by bytes across 5 public repositories: Python 40.6%, Jupyter 29.5%, Rust 15.6%, Assembly 13.7%.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="568" viewBox="0 0 440 568" role="img" aria-labelledby="title desc">
+<title id="title">The dark side of the code</title><desc id="desc">Languages by bytes across 8 public repositories: Python 41.1%, TypeScript 34.2%, Jupyter 12.8%, Rust 3.9%, Assembly 3.4%, Other 4.7%.</desc>
 <style>
   .sans{font-family:Arial,Helvetica,sans-serif}.mono{font-family:"Liberation Mono",Consolas,monospace}
   .ray-in{animation:ray-in 1s ease-out .2s forwards}
@@ -18,7 +18,7 @@
   @media (prefers-reduced-motion:reduce){.ray-in,.photons,.fade-late,.shimmer,.pulse,.twinkle{animation:none}.ray-in{stroke-dashoffset:0}.photons{display:none}.fade-late{opacity:.22}}
   @media (prefers-color-scheme: light){svg > [fill="#0d1117"]{fill:#ffffff}svg > [stroke="#0d1117"]{stroke:#ffffff}svg > [fill="#ede8dd"]{fill:#1f2328}svg > [stroke="#ede8dd"]{stroke:#1f2328}svg > [fill="#a4a39e"]{fill:#59636e}svg > [stroke="#a4a39e"]{stroke:#59636e}svg > [fill="#30363d"]{fill:#d1d9e0}svg > [stroke="#30363d"]{stroke:#d1d9e0}svg > [fill="#ee956e"]{fill:#bc4c00}svg > [stroke="#ee956e"]{stroke:#bc4c00}}
 </style>
-<rect width="440" height="512" rx="8" fill="#0d1117"/>
+<rect width="440" height="568" rx="8" fill="#0d1117"/>
 <path d="M16 1h408" stroke="#30363d"/>
 <text x="16" y="34" font-size="13" class="mono" fill="#ee956e" font-weight="400" letter-spacing="1.5" text-anchor="start">05 / SPECTRUM</text>
 
@@ -37,14 +37,18 @@
   <path d="M38.0 279.8L114.4 233.7" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 22" class="photons"/>
   <path d="M114.4 233.7L212.51135999999997 216.928V228.928Z" fill="#ffffff" opacity=".22" class="fade-late"/>
   <g clip-path="url(#p-fan)">
-    <path d="M212.51135999999997 216.9L406 168.4V219.9L212.51135999999997 221.3Z" fill="#e8423f" class="shimmer" style="animation-delay:-0.00s"/>
-    <path d="M212.51135999999997 221.3L406 219.9V260.0L212.51135999999997 224.7Z" fill="#f6d743" class="shimmer" style="animation-delay:-0.55s"/>
-    <path d="M212.51135999999997 224.7L406 260.0V286.0L212.51135999999997 226.9Z" fill="#4fc263" class="shimmer" style="animation-delay:-1.10s"/>
-    <path d="M212.51135999999997 226.9L406 286.0V309.9L212.51135999999997 228.9Z" fill="#8e5bd8" class="shimmer" style="animation-delay:-1.65s"/>
-    
-    
-    
-    
+    <path d="M212.51135999999997 216.9L406 168.4V212.2L212.51135999999997 220.6Z" fill="#e8423f" class="shimmer" style="animation-delay:-0.00s"/>
+    <path d="M212.51135999999997 220.6L406 212.2V250.3L212.51135999999997 223.8Z" fill="#f39c34" class="shimmer" style="animation-delay:-0.55s"/>
+    <path d="M212.51135999999997 223.8L406 250.3V270.8L212.51135999999997 225.6Z" fill="#f6d743" class="shimmer" style="animation-delay:-1.10s"/>
+    <path d="M212.51135999999997 225.6L406 270.8V283.9L212.51135999999997 226.7Z" fill="#4fc263" class="shimmer" style="animation-delay:-1.65s"/>
+    <path d="M212.51135999999997 226.7L406 283.9V296.7L212.51135999999997 227.8Z" fill="#3b8eea" class="shimmer" style="animation-delay:-2.20s"/>
+    <path d="M212.51135999999997 227.8L406 296.7V310.5L212.51135999999997 228.9Z" fill="#8e5bd8" class="shimmer" style="animation-delay:-2.75s"/>
+
+
+
+
+
+
   </g>
   <path d="M166.8 149.2L71.6 302.8L262.0 302.8Z" fill="none" stroke="#f0f6fc" stroke-width="5" filter="url(#p-glow)" class="pulse"/>
   <path d="M166.8 149.2L71.6 302.8L262.0 302.8Z" fill="url(#p-glass)" stroke="#f0f6fc" stroke-width="2.2" stroke-linejoin="round"/>
@@ -52,14 +56,20 @@
 <rect x="16" y="359" width="12" height="12" rx="2" fill="#e8423f"/>
 <text x="38" y="370" font-size="16" class="sans" fill="#ede8dd" font-weight="700" letter-spacing="0" text-anchor="start">Python</text>
 <text x="424" y="370" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">41%</text>
-<rect x="16" y="387" width="12" height="12" rx="2" fill="#f6d743"/>
-<text x="38" y="398" font-size="16" class="sans" fill="#ede8dd" font-weight="700" letter-spacing="0" text-anchor="start">Jupyter</text>
-<text x="424" y="398" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">30%</text>
-<rect x="16" y="415" width="12" height="12" rx="2" fill="#4fc263"/>
-<text x="38" y="426" font-size="16" class="sans" fill="#ede8dd" font-weight="700" letter-spacing="0" text-anchor="start">Rust</text>
-<text x="424" y="426" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">16%</text>
-<rect x="16" y="443" width="12" height="12" rx="2" fill="#8e5bd8"/>
-<text x="38" y="454" font-size="16" class="sans" fill="#ede8dd" font-weight="700" letter-spacing="0" text-anchor="start">Assembly</text>
-<text x="424" y="454" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">14%</text>
-<text x="16" y="494" font-size="11" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0.5" text-anchor="start">5 public repos · measured in bytes · refreshed nightly</text>
+<rect x="16" y="387" width="12" height="12" rx="2" fill="#f39c34"/>
+<text x="38" y="398" font-size="16" class="sans" fill="#ede8dd" font-weight="700" letter-spacing="0" text-anchor="start">TypeScript</text>
+<text x="424" y="398" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">34%</text>
+<rect x="16" y="415" width="12" height="12" rx="2" fill="#f6d743"/>
+<text x="38" y="426" font-size="16" class="sans" fill="#ede8dd" font-weight="700" letter-spacing="0" text-anchor="start">Jupyter</text>
+<text x="424" y="426" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">13%</text>
+<rect x="16" y="443" width="12" height="12" rx="2" fill="#4fc263"/>
+<text x="38" y="454" font-size="16" class="sans" fill="#ede8dd" font-weight="700" letter-spacing="0" text-anchor="start">Rust</text>
+<text x="424" y="454" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">3.9%</text>
+<rect x="16" y="471" width="12" height="12" rx="2" fill="#3b8eea"/>
+<text x="38" y="482" font-size="16" class="sans" fill="#ede8dd" font-weight="700" letter-spacing="0" text-anchor="start">Assembly</text>
+<text x="424" y="482" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">3.4%</text>
+<rect x="16" y="499" width="12" height="12" rx="2" fill="#8e5bd8"/>
+<text x="38" y="510" font-size="16" class="sans" fill="#ede8dd" font-weight="700" letter-spacing="0" text-anchor="start">Other</text>
+<text x="424" y="510" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">4.7%</text>
+<text x="16" y="550" font-size="11" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0.5" text-anchor="start">8 public repos · measured in bytes · refreshed nightly</text>
 </svg>

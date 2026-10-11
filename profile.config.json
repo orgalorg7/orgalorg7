@@ -251,15 +251,21 @@
     "contributions": null,
     "createdAt": "2023-06-19T14:36:34Z",
     "languages": {
-      "Python": 323712,
-      "Jupyter Notebook": 232231,
+      "Python": 1299558,
+      "TypeScript": 1081614,
+      "Jupyter Notebook": 405348,
       "Rust": 123131,
       "Assembly": 107904,
-      "Makefile": 2406,
-      "Shell": 1548,
-      "HTML": 248
+      "HTML": 43970,
+      "Shell": 41025,
+      "CSS": 35997,
+      "JavaScript": 13155,
+      "PLpgSQL": 5151,
+      "Makefile": 4160,
+      "Dockerfile": 3128,
+      "Mako": 581
     },
-    "languageRepos": 5
+    "languageRepos": 8
   },
   "_help": {
     "contact": "Set github to true to derive it from profile.username. Leave optional contact values empty to hide them.",
