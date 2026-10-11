@@ -64,11 +64,15 @@ function prism(bands, { x, y, w, h }, { labels, id }) {
     return { ray, label };
   });
 
+  // Stacked translucent strokes fake a soft glow without re-blurring it every frame.
+  const glow = [[18, 0.12], [12, 0.18], [7, 0.3]].map(([width, opacity]) =>
+    `<path d="M${point(apex)}L${point(left)}L${point(right)}Z" stroke-width="${width}" stroke-opacity="${opacity}"/>`
+  ).join("");
+
   return `<defs>
     <linearGradient id="${id}-glass" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#ffffff" stop-opacity=".09"/><stop offset="1" stop-color="#ffffff" stop-opacity=".02"/>
     </linearGradient>
-    <filter id="${id}-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
     <clipPath id="${id}-fan"><rect x="${exit.x}" y="${y}" width="${fanWidth + (labels ? 200 : 6)}" height="${h}">
       <animate attributeName="width" values="0;0;${fanWidth + (labels ? 200 : 6)}" keyTimes="0;.5;1" dur="2.4s" fill="freeze"/>
     </rect></clipPath>
@@ -80,7 +84,9 @@ function prism(bands, { x, y, w, h }, { labels, id }) {
     ${rays.map((r) => r.ray).join("\n    ")}
     ${rays.map((r) => r.label).join("\n    ")}
   </g>
-  <path d="M${point(apex)}L${point(left)}L${point(right)}Z" fill="none" stroke="#f0f6fc" stroke-width="5" filter="url(#${id}-glow)" class="pulse"/>
+  <g fill="none" stroke="#f0f6fc" stroke-linejoin="round" class="pulse">
+    ${glow}
+  </g>
   <path d="M${point(apex)}L${point(left)}L${point(right)}Z" fill="url(#${id}-glass)" stroke="#f0f6fc" stroke-width="2.2" stroke-linejoin="round"/>
   <circle cx="${exit.x}" cy="${exit.y}" r="3" fill="#ffffff" class="twinkle"/>`;
 }

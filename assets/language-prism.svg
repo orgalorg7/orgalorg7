@@ -28,7 +28,6 @@
     <linearGradient id="p-glass" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#ffffff" stop-opacity=".09"/><stop offset="1" stop-color="#ffffff" stop-opacity=".02"/>
     </linearGradient>
-    <filter id="p-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
     <clipPath id="p-fan"><rect x="560.224" y="148" width="605.776" height="300">
       <animate attributeName="width" values="0;0;605.776" keyTimes="0;.5;1" dur="2.4s" fill="freeze"/>
     </rect></clipPath>
@@ -56,7 +55,9 @@
     <text x="984" y="424.23617891239735" font-size="16" class="sans" fill="#8e5bd8" font-weight="700" letter-spacing="0" text-anchor="start">Other</text>
     <text x="1156" y="424.23617891239735" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">4.7%</text>
   </g>
-  <path d="M488.8 178.0L340.0 418.0L637.6 418.0Z" fill="none" stroke="#f0f6fc" stroke-width="5" filter="url(#p-glow)" class="pulse"/>
+  <g fill="none" stroke="#f0f6fc" stroke-linejoin="round" class="pulse">
+    <path d="M488.8 178.0L340.0 418.0L637.6 418.0Z" stroke-width="18" stroke-opacity="0.12"/><path d="M488.8 178.0L340.0 418.0L637.6 418.0Z" stroke-width="12" stroke-opacity="0.18"/><path d="M488.8 178.0L340.0 418.0L637.6 418.0Z" stroke-width="7" stroke-opacity="0.3"/>
+  </g>
   <path d="M488.8 178.0L340.0 418.0L637.6 418.0Z" fill="url(#p-glass)" stroke="#f0f6fc" stroke-width="2.2" stroke-linejoin="round"/>
   <circle cx="560.224" cy="293.2" r="3" fill="#ffffff" class="twinkle"/>
 <text x="16" y="498" font-size="12" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="1" text-anchor="start">8 public repos · measured in bytes · refreshed nightly</text>

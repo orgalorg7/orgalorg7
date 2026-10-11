@@ -81,6 +81,9 @@ function assertPortrait(portrait) {
   if (!portrait || !Array.isArray(portrait.palette) || !Array.isArray(portrait.lines)) {
     throw new Error("ASCII portrait data is malformed");
   }
+  if (typeof portrait.image !== "string" || !portrait.image.startsWith("data:image/webp;base64,")) {
+    throw new Error("ASCII portrait is missing its pre-rendered image; run scripts/generate-ascii-portrait.py");
+  }
   if (portrait.lines.length !== portrait.rows) {
     throw new Error("ASCII portrait row count does not match its metadata");
   }
@@ -242,34 +245,21 @@ function svgShell({ width, height, title, chromeTitle, description, content }) {
     .rule { stroke: ${palette.border}; stroke-width: 1; }
     .boot { animation: boot .55s ease-out both; }
     .blink { animation: blink 1.1s steps(1) infinite; }
-    .beam { animation: beam 6.5s linear infinite; }
-    @keyframes boot { 0% { opacity: 0; } 55% { opacity: 1; } 70% { opacity: .3; } 100% { opacity: 1; } }
+    .reveal { animation: reveal 1.4s ease-out both; }
+    @keyframes reveal { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes boot { from { opacity: 0; } to { opacity: 1; } }
     @keyframes blink { 50% { opacity: 0; } }
-    @keyframes beam { from { transform: translateY(0); } 40%, to { transform: translateY(var(--beam-travel)); } }
     .eq { transform-box: fill-box; transform-origin: 50% 100%; animation: eq .8s ease-in-out infinite alternate; }
     @keyframes eq { from { transform: scaleY(.25); } to { transform: scaleY(1); } }
     .steam { animation: steam 1.6s ease-out infinite; opacity: 0; }
     @keyframes steam { 0% { opacity: 0; transform: translateY(3px); } 40% { opacity: .8; } 100% { opacity: 0; transform: translateY(-5px); } }
     .sun { transform-box: fill-box; transform-origin: center; animation: sun 12s linear infinite; }
     @keyframes sun { to { transform: rotate(360deg); } }
-    .bios { transform-box: fill-box; transform-origin: center; animation: bios-out .6s ease-in ${biosDuration - 0.6}s forwards; }
-    @keyframes bios-out {
-      0% { transform: none; opacity: 1; }
-      15% { transform: translateX(-16px) skewX(-8deg); }
-      30% { transform: translateX(12px); opacity: .7; }
-      45% { transform: translateX(-5px); opacity: 1; }
-      75% { transform: scaleY(.012); opacity: .95; }
-      100% { transform: scaleX(0) scaleY(.012); opacity: 0; visibility: hidden; }
-    }
+    .bios { animation: bios-out .6s ease-in-out ${biosDuration - 0.6}s forwards; }
+    @keyframes bios-out { to { opacity: 0; visibility: hidden; } }
     .bios-bar { transform-box: fill-box; transform-origin: left; animation: bios-bar 2.1s cubic-bezier(.3,.1,.4,1) .3s both; }
     @keyframes bios-bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-    .glitch { animation: glitch 7s steps(1, end) infinite; }
-    @keyframes glitch { 0%, 90%, 92.5%, 95.5%, 100% { transform: none; } 90.8% { transform: translateX(var(--gx)); } 94% { transform: translateX(calc(var(--gx) * -.6)); } }
-    .rgb { animation: rgb 7s steps(1, end) infinite; }
-    @keyframes rgb { 0%, 90%, 95.5%, 100% { filter: none; } 90.5%, 94% { filter: drop-shadow(-3px 0 rgba(255, 40, 90, .85)) drop-shadow(3px 0 rgba(40, 220, 255, .85)); } }
-    .tear { opacity: 0; animation: tear 7s steps(1, end) infinite; }
-    @keyframes tear { 0%, 91.6%, 93.6%, 95%, 100% { opacity: 0; } 90.4% { opacity: .75; } 94% { opacity: .5; } }
-    @media (prefers-reduced-motion: reduce) { .boot, .blink, .eq, .sun, .glitch, .rgb, .tear { animation: none; } .steam { animation: none; opacity: .6; } .beam, .bios, .tear { display: none; } }
+    @media (prefers-reduced-motion: reduce) { .boot, .blink, .eq, .sun, .reveal { animation: none; } .steam { animation: none; opacity: .6; } .bios { display: none; } }
     ${lightModeCss({
       [palette.page]: lightPage,
       [palette.card]: "#f6f8fa",
@@ -278,8 +268,6 @@ function svgShell({ width, height, title, chromeTitle, description, content }) {
       [palette.secondary]: lightMuted,
       [palette.blue]: "#0969da"
     }, {
-      // Portrait glyphs (tspans) share some of these colors, so they are left alone on their dark CRT screen.
-      scope: ":not(tspan)",
       extra: `.primary,.section{fill:${lightInk}}.secondary{fill:${lightMuted}}.label{fill:#bc4c00}.value{fill:#0969da}.accent{fill:#1b7c83}.leader{stroke:#afb8c1}.rule{stroke:${lightLine}}rect.screen{fill:${palette.page}}`
     })}
   </style>
@@ -391,9 +379,8 @@ function statRows(stats) {
 const biosDuration = 3.2;
 const typeStart = 0.4;
 const typeCharDuration = 0.065;
-const glitchAfterPortrait = 2.5;
 
-// A fake POST/kernel log covers the card, then glitches and collapses like a CRT switching over.
+// A fake POST/kernel log covers the card, then fades away.
 function biosScreen(config, { width, height }) {
   const year = new Date().getUTCFullYear();
   const city = (config.profile.location?.split(",")[0] || "local").toLowerCase();
@@ -499,78 +486,11 @@ function syncClock(config, { cx, y, now = new Date() }) {
   <text x="${cx + 4}" y="${y}" text-anchor="middle" class="secondary" font-size="14">${escapeXml(label)}</text>`;
 }
 
-// Scanlines and a slow sweeping beam make the portrait read as a warm CRT. There is deliberately
-// no always-on blur filter: re-blurring thousands of glyphs every animation frame made the card sluggish.
-function crtPortrait(portrait, box, start) {
-  const { x, y, width, height } = box;
-  const beamHeight = 70;
-  const glitchAt = start + glitchAfterPortrait;
-  return `<defs>
-    <pattern id="scanlines" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="1.6" fill="#000" opacity=".28"/></pattern>
-    <linearGradient id="beam-fill" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="${palette.cyan}" stop-opacity="0"/>
-      <stop offset=".85" stop-color="${palette.cyan}" stop-opacity=".1"/>
-      <stop offset="1" stop-color="${palette.cyan}" stop-opacity="0"/>
-    </linearGradient>
-    <clipPath id="crt-screen"><rect x="${x}" y="${y}" width="${width}" height="${height}"/></clipPath>
-  </defs>
-  <rect x="${x - 6}" y="${y - 6}" width="${width + 12}" height="${height + 12}" rx="8" fill="${palette.card}" class="screen"/>
-  ${portrait.underlay ? `<image href="${portrait.underlay}" x="${x}" y="${y}" width="${width}" height="${height}" opacity=".35" preserveAspectRatio="none" aria-hidden="true"/>` : ""}
-  <g class="rgb" style="animation-delay:${glitchAt.toFixed(2)}s">
-    ${portraitText(portrait, box, start, glitchAt)}
-  </g>
-  <g clip-path="url(#crt-screen)" aria-hidden="true">
-    <rect x="${x}" y="${y}" width="${width}" height="${height}" fill="url(#scanlines)"/>
-    <rect x="${x}" y="${(y + height * 0.38).toFixed(1)}" width="${width}" height="3" fill="#d8fbff" class="tear" style="animation-delay:${glitchAt.toFixed(2)}s"/>
-    <rect x="${x}" y="${(y + height * 0.71).toFixed(1)}" width="${width}" height="2" fill="#ffd6e0" class="tear" style="animation-delay:${(glitchAt + 0.25).toFixed(2)}s"/>
-    <rect x="${x}" y="${y - beamHeight}" width="${width}" height="${beamHeight}" fill="url(#beam-fill)" class="beam" style="--beam-travel:${height + beamHeight}px;animation-delay:${start.toFixed(2)}s"/>
-  </g>`;
-}
-
-// Horizontal bands of rows slip sideways by these fractions of the portrait width during a glitch.
-const glitchShifts = [0, 0.035, -0.025, 0, 0.055, -0.04, 0.015, 0];
-
-// Rows reveal in small blocks rather than one by one: far fewer concurrent animations to composite.
-const revealRowsPerBlock = 6;
-
-function portraitText(portrait, { x, y, width, height }, revealAt = 0, glitchAt = null) {
-  const cellWidth = width / portrait.columns;
-  const lineHeight = height / portrait.rows;
-  const fontSize = cellWidth / 0.6;
-  // Monospace glyphs advance 0.6em, so each run is placed by x alone; no per-glyph textLength fitting.
-  const rows = portrait.lines.map((line, rowIndex) => {
-    const runs = [];
-    let start = 0;
-    while (start < line.chars.length) {
-      const colorKey = line.colors[start];
-      let end = start + 1;
-      while (end < line.chars.length && line.colors[end] === colorKey) end += 1;
-      const color = portrait.palette[Number(colorKey)] ?? palette.secondary;
-      const chars = line.chars.slice(start, end);
-      const lead = chars.length - chars.trimStart().length;
-      if (chars.trim()) {
-        runs.push(`<tspan x="${(x + (start + lead) * cellWidth).toFixed(2)}" fill="${escapeXml(color)}">${escapeXml(chars.trim())}</tspan>`);
-      }
-      start = end;
-    }
-    return `<text y="${(y + rowIndex * lineHeight + fontSize * 0.8).toFixed(2)}">${runs.join("")}</text>`;
-  });
-  const blocks = [];
-  for (let first = 0; first < rows.length; first += revealRowsPerBlock) {
-    // Reveal the whole portrait over ~1.7s regardless of its row count.
-    const delay = (revealAt + (first / rows.length) * 1.7).toFixed(3);
-    blocks.push(`<g class="boot" style="animation-delay:${delay}s">${rows.slice(first, first + revealRowsPerBlock).join("")}</g>`);
-  }
-  const font = `font-family="'Liberation Mono', 'Courier New', monospace" font-size="${fontSize.toFixed(3)}" font-weight="700" xml:space="preserve"`;
-  if (glitchAt == null) return `<g ${font}>${blocks.join("\n    ")}</g>`;
-  const bandSize = Math.ceil(blocks.length / glitchShifts.length);
-  const bands = glitchShifts.map((shift, band) => {
-    const content = blocks.slice(band * bandSize, (band + 1) * bandSize).join("\n    ");
-    return shift
-      ? `<g class="glitch" style="--gx:${(shift * width).toFixed(1)}px;animation-delay:${glitchAt.toFixed(2)}s">${content}</g>`
-      : content;
-  });
-  return `<g ${font}>${bands.join("\n    ")}</g>`;
+// The glyphs arrive pre-rendered as one image: browsers repaint an animated SVG in full every
+// frame, and one bitmap is far cheaper to repaint than thousands of colored text runs.
+function portraitImage(portrait, { x, y, width, height }, start) {
+  return `<rect x="${x - 6}" y="${y - 6}" width="${width + 12}" height="${height + 12}" rx="8" fill="${palette.card}" class="screen"/>
+  <image href="${portrait.image}" x="${x}" y="${y}" width="${width}" height="${height}" preserveAspectRatio="none" class="reveal" style="animation-delay:${start.toFixed(2)}s" aria-hidden="true"/>`;
 }
 
 function renderDesktop(config, stats, portrait) {
@@ -582,7 +502,7 @@ function renderDesktop(config, stats, portrait) {
   const metrics = statRows(stats).slice(0, 4);
 
   const booted = biosDuration + typingEnd(config.terminal.command) + 0.1;
-  const ascii = crtPortrait(portrait, { x: 30, y: 132, width: 396, height: 396 }, booted);
+  const ascii = portraitImage(portrait, { x: 30, y: 132, width: 396, height: 396 }, booted);
 
   const system = systemRows(config, stats).slice(0, 5).map((row, index) => desktopRow({
     ...row,
@@ -679,7 +599,7 @@ function renderMobile(config, stats, portrait) {
     value: values.join(" · ")
   }));
   const booted = biosDuration + typingEnd(config.terminal.command) + 0.1;
-  const compactAscii = crtPortrait(portrait, { x: 184, y: 112, width: 312, height: 312 }, booted);
+  const compactAscii = portraitImage(portrait, { x: 184, y: 112, width: 312, height: 312 }, booted);
 
   const system = systemRows(config, stats).slice(0, 5).map((row, index) => mobileRow({
     ...row,

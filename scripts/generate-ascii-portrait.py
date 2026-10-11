@@ -10,12 +10,13 @@ import json
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageOps
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_INPUT = ROOT / "mypic.jpeg"
 DEFAULT_OUTPUT = ROOT / "assets" / "ascii-portrait.json"
+FONT_PATH = Path("/usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf")
 
 # Small, tightly spaced glyphs preserve eyes, hair and smile at README scale.
 COLUMNS = 198
@@ -35,6 +36,13 @@ BACKGROUND = (16, 21, 29)
 GAMMA_LIFT = 0.6
 # Stronger lift for output, since the portrait renders without a glow filter.
 DISPLAY_LIFT = 0.62
+# The portrait ships as one pre-rendered image: 6x8.25px cells, 3x the desktop
+# card's 2x2.75px cells, so it stays sharp on high-density screens.
+CELL = (6, 8.25)
+# Drawn at this multiple, then downsampled, for smoothly anti-aliased glyphs.
+SUPERSAMPLE = 2
+# Opacity of the soft color layer that fills the gaps between glyphs like phosphor glow.
+GLOW = 0.5
 
 
 def subject_mask(size: tuple[int, int]) -> Image.Image:
@@ -49,9 +57,9 @@ def subject_mask(size: tuple[int, int]) -> Image.Image:
         (37, 64), (39, 49), (47, 36), (62, 25), (83, 16),
         (109, 9), (135, 11), (153, 17), (165, 31), (169, 49),
         (169, 76), (166, 94), (171, 101), (169, 120),
-        (163, 137), (155, 153), (154, 166), (166, 178),
-        (188, 188), (222, 207), (223, 223), (0, 223),
-        (0, 210), (22, 193), (51, 182), (59, 171),
+        (163, 137), (155, 153), (154, 166), (157, 178),
+        (171, 187), (191, 196), (223, 211), (223, 223), (0, 223),
+        (0, 213), (22, 198), (42, 193), (60, 187), (59, 171),
         (55, 156), (47, 141), (44, 124), (40, 111),
         (40, 96), (39, 82),
     ]
@@ -66,20 +74,100 @@ def subject_mask(size: tuple[int, int]) -> Image.Image:
     )
 
 
-def sample_photo(source_path: Path) -> tuple[np.ndarray, np.ndarray]:
+def wall_mask(source: Image.Image, outline: Image.Image) -> np.ndarray:
+    """The orange wall showing inside the outline, as a 0..1 mask to recolor.
+
+    Skin can match the wall's color, so only wall-colored pixels connected to
+    the wall outside the outline count; they are recolored, never cut out.
+    """
+    hsv = np.asarray(source.convert("HSV"), dtype=np.float64) / 255
+    hue, saturation, value = hsv[..., 0] * 360, hsv[..., 1], hsv[..., 2]
+    candidate = ((hue < 28) | (hue > 345)) & (saturation > 0.5) & (value > 0.72)
+    inside = np.asarray(outline, dtype=np.float64) > 127
+    # Only a thin band along the outline is eligible, so the search never reaches the face.
+    candidate &= ~(np.asarray(outline.filter(ImageFilter.MinFilter(9)), dtype=np.float64) > 127)
+
+    def grow(mask: np.ndarray, size: int = 3) -> np.ndarray:
+        return np.asarray(Image.fromarray((mask * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(size))) > 0
+
+    # Flood from outside the outline through wall-colored pixels only.
+    reached = candidate & ~inside
+    while True:
+        grown = grow(reached) & candidate
+        if (grown == reached).all():
+            break
+        reached = grown
+    # Grow to catch the darker anti-aliased fringe where wall meets hair and jacket.
+    return grow(reached, 3).astype(np.float64)
+
+
+def gaussian(values: np.ndarray, sigma: float) -> np.ndarray:
+    """Separable Gaussian blur over the first two axes, with edge padding."""
+    reach = int(np.ceil(sigma * 3))
+    offsets = np.arange(-reach, reach + 1)
+    kernel = np.exp(-(offsets ** 2) / (2 * sigma ** 2))
+    kernel /= kernel.sum()
+    pad = [(reach, reach), (reach, reach)] + [(0, 0)] * (values.ndim - 2)
+    padded = np.pad(values, pad, mode="edge")
+    height, width = values.shape[:2]
+    rows = sum(k * padded[:, reach + o:reach + o + width] for k, o in zip(kernel, offsets))
+    return sum(k * rows[reach + o:reach + o + height] for k, o in zip(kernel, offsets))
+
+
+def fill_from_subject(source: Image.Image, keep: Image.Image) -> Image.Image:
+    """Recolor everything outside `keep` with nearby subject colors.
+
+    Wall pixels inside the outline take on the neighbouring hair, skin or jacket
+    color, so no orange survives while the silhouette itself stays intact.
+    """
+    color = np.asarray(source, dtype=np.float64)
+    weight = np.asarray(keep, dtype=np.float64) / 255
+    filled = color.copy()
+    done = weight > 0.5
+    # Smallest neighbourhood that contains enough subject wins: nearest colors first.
+    for sigma in (1, 2, 4, 8, 16, 32):
+        coverage = gaussian(weight, sigma)
+        estimate = gaussian(color * weight[..., None], sigma) / np.maximum(coverage, 1e-6)[..., None]
+        take = ~done & (coverage > 0.08)
+        filled[take] = estimate[take]
+        done |= take
+    out = color * weight[..., None] + filled * (1 - weight[..., None])
+    return Image.fromarray(out.round().clip(0, 255).astype(np.uint8), mode="RGB")
+
+
+def raster_size() -> tuple[int, int]:
+    """Pixel size of the supersampled portrait image."""
+    return round(COLUMNS * CELL[0] * SUPERSAMPLE), round(ROWS * CELL[1] * SUPERSAMPLE)
+
+
+def sample_photo(source_path: Path) -> tuple[np.ndarray, np.ndarray, tuple[np.ndarray, np.ndarray]]:
     source = ImageOps.exif_transpose(Image.open(source_path)).convert("RGB")
-    # Remove JPEG noise before sampling; avoid sharpening that breaks up shading.
+    outline_image = subject_mask(source.size)
+    wall = wall_mask(source, outline_image)
+    outline = np.asarray(outline_image, dtype=np.float64) / 255
+    keep = Image.fromarray((outline * (1 - wall) * 255).round().astype(np.uint8))
+    source = fill_from_subject(source, keep)
+    graded = ImageOps.autocontrast(source.filter(ImageFilter.GaussianBlur(0.3)), cutoff=(1, 0.5))
     # Light denoise, then sharpen after downsampling so eyes, brows and beard stay crisp.
-    sampled = ImageOps.autocontrast(
-        source.filter(ImageFilter.GaussianBlur(0.3)), cutoff=(1, 0.5)
-    ).resize((COLUMNS, ROWS), Image.Resampling.LANCZOS).filter(
+    sampled = graded.resize((COLUMNS, ROWS), Image.Resampling.LANCZOS).filter(
         ImageFilter.UnsharpMask(radius=1.2, percent=70, threshold=2)
     )
-    mask = subject_mask(source.size).resize((COLUMNS, ROWS), Image.Resampling.LANCZOS)
-    return np.asarray(sampled, dtype=np.float64), np.asarray(mask, dtype=np.float64) / 255
+    # The silhouette stays the smooth hand-drawn outline; the wall is only recolored, never cut out.
+    mask = outline_image.resize((COLUMNS, ROWS), Image.Resampling.LANCZOS)
+    # Full-resolution color and outline let glyph colors flow smoothly instead of in cell blocks.
+    detail = (
+        np.asarray(
+            graded.resize(raster_size(), Image.Resampling.LANCZOS).filter(
+                ImageFilter.UnsharpMask(radius=8, percent=80, threshold=1)
+            ),
+            dtype=np.float64,
+        ),
+        np.asarray(outline_image.resize(raster_size(), Image.Resampling.LANCZOS), dtype=np.float64) / 255,
+    )
+    return np.asarray(sampled, dtype=np.float64), np.asarray(mask, dtype=np.float64) / 255, detail
 
 
-def sample_portrait_json(source_path: Path) -> tuple[np.ndarray, np.ndarray]:
+def sample_portrait_json(source_path: Path) -> tuple[np.ndarray, np.ndarray, None]:
     """Recover tone and mask from coarser portrait data, upsampled to COLUMNS x ROWS."""
     portrait = json.loads(source_path.read_text(encoding="utf-8"))
     palette = np.array([[int(h[i:i + 2], 16) for i in (1, 3, 5)] for h in portrait["palette"]])
@@ -90,37 +178,36 @@ def sample_portrait_json(source_path: Path) -> tuple[np.ndarray, np.ndarray]:
     mask = Image.fromarray(inked * 255).resize(size, Image.Resampling.BICUBIC)
     # Undo the gamma lift so the data matches what sample_photo would produce.
     sampled = 255 * (np.asarray(color, dtype=np.float64) / 255) ** (1 / GAMMA_LIFT)
-    return sampled, np.asarray(mask, dtype=np.float64) / 255
+    return sampled, np.asarray(mask, dtype=np.float64) / 255, None
 
 
-def trim_backdrop(sampled: np.ndarray, alpha: np.ndarray) -> np.ndarray:
-    """Drop the warm orange wall that shows above the jacket on both shoulders.
-
-    The jacket is grey, so any warm cell beside the neck below the chin is backdrop.
-    Bounds are fractions of the grid, matching the checked-in portrait's framing.
-    """
-    rows, columns = alpha.shape
-    y, x = np.mgrid[0:rows, 0:columns]
-    shoulders = (y >= rows * 0.73) & ((x <= columns * 0.255) | (x >= columns * 0.715))
-    red, blue = sampled[..., 0], sampled[..., 2]
-    warm = red - blue > 18
-    return np.where(shoulders & warm, 0.0, alpha)
-
-
-def convert(sampled: np.ndarray, alpha: np.ndarray) -> dict[str, object]:
-    alpha = trim_backdrop(sampled, alpha)
-    luma = (sampled @ np.array([0.2126, 0.7152, 0.0722])) / 255
-    # Keep enough ink in the midtones to read as a continuous face.
-    density = np.clip(luma, 0, 1) ** 0.55 * alpha
-
+def display_color(rgb: np.ndarray, rim: np.ndarray) -> np.ndarray:
+    """Lift and warm photo colors for display, muting them toward grey along the rim."""
     # Lift color gently to compensate for the empty space within each glyph.
-    # A photographic palette retains subtle skin/hair tones instead of bands.
-    lifted = 255 * (np.clip(sampled, 0, 255) / 255) ** DISPLAY_LIFT
+    lifted = 255 * (np.clip(rgb, 0, 255) / 255) ** DISPLAY_LIFT
     # Thin glyphs mix with the dark screen and read greyer than the photo; restore warmth.
     lifted = np.asarray(
         ImageEnhance.Color(Image.fromarray(lifted.round().astype(np.uint8), mode="RGB")).enhance(1.25),
         dtype=np.float64,
     )
+    grey = lifted @ np.array([0.2126, 0.7152, 0.0722])
+    muted = rim[..., None] * 0.7
+    return lifted * (1 - muted) + grey[..., None] * muted
+
+
+def convert(
+    sampled: np.ndarray, alpha: np.ndarray, detail: tuple[np.ndarray, np.ndarray] | None = None
+) -> dict[str, object]:
+    luma = (sampled @ np.array([0.2126, 0.7152, 0.0722])) / 255
+    # Keep enough ink in the midtones to read as a continuous face.
+    density = np.clip(luma, 0, 1) ** 0.55 * alpha
+
+    # The outermost cells still pick up a reddish rim from the wall; their color is muted.
+    core = np.asarray(
+        Image.fromarray((alpha > 0.5).astype(np.uint8) * 255).filter(ImageFilter.MinFilter(5))
+    ) > 0
+    rim = ((alpha > 0.04) & ~core).astype(np.float64)
+    lifted = display_color(sampled, rim)
     shaded = lifted * alpha[..., None] + np.array(BACKGROUND) * (1 - alpha[..., None])
     image = Image.fromarray(np.round(shaded).astype(np.uint8), mode="RGB")
     indexed = image.quantize(colors=64, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
@@ -146,21 +233,55 @@ def convert(sampled: np.ndarray, alpha: np.ndarray) -> dict[str, object]:
         "rows": ROWS,
         "palette": palette,
         "lines": lines,
-        "underlay": underlay(lifted, alpha),
+        "image": render_image(lines, *(detail or upsampled(sampled, alpha)), rim),
     }
 
 
-def underlay(lifted: np.ndarray, alpha: np.ndarray) -> str:
-    """A tiny, soft color image drawn beneath the glyphs.
+def upsampled(sampled: np.ndarray, alpha: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """Stand-in for full-resolution detail when only grid-sized data is available."""
+    color = Image.fromarray(sampled.round().clip(0, 255).astype(np.uint8), mode="RGB")
+    mask = Image.fromarray((alpha * 255).round().astype(np.uint8))
+    return (
+        np.asarray(color.resize(raster_size(), Image.Resampling.BICUBIC), dtype=np.float64),
+        np.asarray(mask.resize(raster_size(), Image.Resampling.BICUBIC), dtype=np.float64) / 255,
+    )
 
-    It fills the gaps between characters the way a CRT phosphor glow would,
-    at the cost of one bitmap draw rather than a live blur filter.
+
+def render_image(
+    lines: list[dict[str, object]], color: np.ndarray, alpha: np.ndarray, rim: np.ndarray
+) -> str:
+    """Pre-render the glyphs over a soft color glow as one transparent WebP.
+
+    Glyphs take their color per pixel from the full-resolution photo rather than
+    one flat color per cell, so tones flow smoothly instead of looking pixelated.
+    Browsers repaint an animated SVG in full every frame; one bitmap costs a
+    fraction of thousands of colored text runs, so the card animates smoothly.
     """
-    rgba = np.dstack([lifted, alpha * 255]).round().astype(np.uint8)
-    image = Image.fromarray(rgba, mode="RGBA")
+    size = raster_size()
+    cell_w, cell_h = CELL[0] * SUPERSAMPLE, CELL[1] * SUPERSAMPLE
+    rim_full = np.asarray(
+        Image.fromarray((rim * 255).astype(np.uint8)).resize(size, Image.Resampling.BILINEAR),
+        dtype=np.float64,
+    ) / 255
+    tint = display_color(color, rim_full)
+    ink = Image.new("L", size, 0)
+    draw = ImageDraw.Draw(ink)
+    font = ImageFont.truetype(str(FONT_PATH), round(cell_w / 0.6))
+    for y, line in enumerate(lines):
+        baseline = y * cell_h + cell_w / 0.6 * 0.8
+        for x, char in enumerate(line["chars"]):
+            if char != " ":
+                draw.text((x * cell_w, baseline), char, font=font, fill=255, anchor="ls")
+    glyph_alpha = np.asarray(ink, dtype=np.float64) / 255
+    # Glyphs fully opaque; between them, a faint glow of the same colors fills the gaps.
+    coverage = glyph_alpha + (1 - glyph_alpha) * alpha * GLOW
+    rgba = np.dstack([tint, coverage * 255]).round().clip(0, 255).astype(np.uint8)
+    canvas = Image.fromarray(rgba, mode="RGBA").resize(
+        (round(size[0] / SUPERSAMPLE), round(size[1] / SUPERSAMPLE)), Image.Resampling.LANCZOS
+    )
     buffer = io.BytesIO()
-    image.save(buffer, format="PNG", optimize=True)
-    return "data:image/png;base64," + base64.b64encode(buffer.getvalue()).decode("ascii")
+    canvas.save(buffer, format="WEBP", quality=90, method=6)
+    return "data:image/webp;base64," + base64.b64encode(buffer.getvalue()).decode("ascii")
 
 
 def main() -> None:
