@@ -39,7 +39,7 @@
   <circle cx="86" cy="41" r="6" fill="#3fb950" opacity=".85"/>
   <text x="112" y="47" class="primary" font-size="17" font-weight="600">profile.sh</text>
   <g class="sun"><circle cx="241.4" cy="42" r="3.6" fill="#f0883e"/><path d="M247.00 42.00L249.00 42.00" stroke="#f0883e" stroke-width="1.4" stroke-linecap="round"/><path d="M245.36 45.96L246.77 47.37" stroke="#f0883e" stroke-width="1.4" stroke-linecap="round"/><path d="M241.40 47.60L241.40 49.60" stroke="#f0883e" stroke-width="1.4" stroke-linecap="round"/><path d="M237.44 45.96L236.03 47.37" stroke="#f0883e" stroke-width="1.4" stroke-linecap="round"/><path d="M235.80 42.00L233.80 42.00" stroke="#f0883e" stroke-width="1.4" stroke-linecap="round"/><path d="M237.44 38.04L236.03 36.63" stroke="#f0883e" stroke-width="1.4" stroke-linecap="round"/><path d="M241.40 36.40L241.40 34.40" stroke="#f0883e" stroke-width="1.4" stroke-linecap="round"/><path d="M245.36 38.04L246.77 36.63" stroke="#f0883e" stroke-width="1.4" stroke-linecap="round"/></g>
-  <text x="356" y="47" text-anchor="middle" class="secondary" font-size="14">Cairo 11:59 · last sync</text>
+  <text x="356" y="47" text-anchor="middle" class="secondary" font-size="14">Cairo 11:37 · last sync</text>
   <text x="642" y="47" text-anchor="end" class="secondary" font-size="14">~/orgalorg7/profile</text>
   <text x="38" y="100" class="accent" font-size="15">$</text>
   <clipPath id="typed-command"><rect x="60" y="85" width="0" height="22.5">
@@ -104,7 +104,7 @@
     <line x1="148" y1="935" x2="642" y2="935" class="rule"/>
   <text x="38" y="962" class="label" font-size="15">Repositories</text>
     <line x1="170" y1="957" x2="611.5" y2="957" class="leader"/>
-    <text x="642" y="962" text-anchor="end" class="value" font-size="15">11</text>
+    <text x="642" y="962" text-anchor="end" class="value" font-size="15">12</text>
     <text x="38" y="985" class="label" font-size="15">Followers</text>
     <line x1="170" y1="980" x2="611.5" y2="980" class="leader"/>
     <text x="642" y="985" text-anchor="end" class="value" font-size="15">14</text>
@@ -113,10 +113,10 @@
     <text x="642" y="1008" text-anchor="end" class="value" font-size="15">1</text>
     <text x="38" y="1031" class="label" font-size="15">Contrib. YTD</text>
     <line x1="170" y1="1026" x2="586.8" y2="1026" class="leader"/>
-    <text x="642" y="1031" text-anchor="end" class="value" font-size="15">1,851</text></g>
+    <text x="642" y="1031" text-anchor="end" class="value" font-size="15">1,914</text></g>
   <g class="boot" style="animation-delay:7.34s"><rect x="38" y="1068" width="3" height="12" rx="1" fill="#f0883e" class="eq" style="animation-delay:-0.00s;animation-duration:0.55s"/><rect x="43" y="1068" width="3" height="12" rx="1" fill="#f0883e" class="eq" style="animation-delay:-0.37s;animation-duration:0.68s"/><rect x="48" y="1068" width="3" height="12" rx="1" fill="#f0883e" class="eq" style="animation-delay:-0.74s;animation-duration:0.81s"/><rect x="53" y="1068" width="3" height="12" rx="1" fill="#f0883e" class="eq" style="animation-delay:-1.11s;animation-duration:0.94s"/>
   <text x="64" y="1080" class="secondary" font-size="12" letter-spacing="1.5">NOW PLAYING</text>
-  <text x="38" y="1106" class="primary" font-size="16" font-weight="700">Echoes — Pink Floyd</text></g>
+  <text x="38" y="1106" class="primary" font-size="16" font-weight="700">Roundabout — Yes</text></g>
   <g class="boot" style="animation-delay:7.54s"><text x="38" y="1146" class="accent" font-size="15">$</text>
   <rect x="60" y="1133" width="9" height="15" rx="1" fill="#8b949e" class="blink" style="animation-delay:8.14s"><set attributeName="visibility" to="hidden" begin="25s"/></rect></g>
   <clipPath id="typed-egg"><rect x="60" y="1131" width="0" height="22.5">

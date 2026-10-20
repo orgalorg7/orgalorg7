@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="514" viewBox="0 0 1200 514" role="img" aria-labelledby="title desc">
-<title id="title">The dark side of the code</title><desc id="desc">Languages by bytes across 8 public repositories: Python 41.1%, TypeScript 34.2%, Jupyter 12.8%, Rust 3.9%, Assembly 3.4%, Other 4.7%.</desc>
+<title id="title">The dark side of the code</title><desc id="desc">Languages by bytes across 9 public repositories: Python 35.9%, TypeScript 29.8%, Jupyter 11.2%, JavaScript 6.7%, HTML 5.0%, Other 11.5%.</desc>
 <style>
   .sans{font-family:Arial,Helvetica,sans-serif}.mono{font-family:"Liberation Mono",Consolas,monospace}
   .ray-in{animation:ray-in 1s ease-out .2s forwards}
@@ -36,30 +36,30 @@
   <path d="M52.0 382.0L407.0 310.0" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 22" class="photons"/>
   <path d="M407.0 310.0L560.224 287.2V299.2Z" fill="#ffffff" opacity=".22" class="fade-late"/>
   <g clip-path="url(#p-fan)">
-    <path d="M560.224 287.2L966 208.0V276.4L560.224 290.9Z" fill="#e8423f" class="shimmer" style="animation-delay:-0.00s"/>
-    <path d="M560.224 290.9L966 276.4V336.0L560.224 294.1Z" fill="#f39c34" class="shimmer" style="animation-delay:-0.55s"/>
-    <path d="M560.224 294.1L966 336.0V368.0L560.224 295.8Z" fill="#f6d743" class="shimmer" style="animation-delay:-1.10s"/>
-    <path d="M560.224 295.8L966 368.0V388.5L560.224 297.0Z" fill="#4fc263" class="shimmer" style="animation-delay:-1.65s"/>
-    <path d="M560.224 297.0L966 388.5V408.5L560.224 298.0Z" fill="#3b8eea" class="shimmer" style="animation-delay:-2.20s"/>
-    <path d="M560.224 298.0L966 408.5V430.0L560.224 299.2Z" fill="#8e5bd8" class="shimmer" style="animation-delay:-2.75s"/>
-    <text x="984" y="247.20693317770093" font-size="16" class="sans" fill="#e8423f" font-weight="700" letter-spacing="0" text-anchor="start">Python</text>
-    <text x="1156" y="247.20693317770093" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">41%</text>
-    <text x="984" y="311.18716058472125" font-size="16" class="sans" fill="#f39c34" font-weight="700" letter-spacing="0" text-anchor="start">TypeScript</text>
-    <text x="1156" y="311.18716058472125" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">34%</text>
-    <text x="984" y="356.9764569083793" font-size="16" class="sans" fill="#f6d743" font-weight="700" letter-spacing="0" text-anchor="start">Jupyter</text>
-    <text x="1156" y="356.9764569083793" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">13%</text>
-    <text x="984" y="383.26731528393327" font-size="16" class="sans" fill="#4fc263" font-weight="700" letter-spacing="0" text-anchor="start">Rust</text>
-    <text x="1156" y="383.26731528393327" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">3.9%</text>
-    <text x="984" y="403.5072646949717" font-size="16" class="sans" fill="#3b8eea" font-weight="700" letter-spacing="0" text-anchor="start">Assembly</text>
-    <text x="1156" y="403.5072646949717" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">3.4%</text>
-    <text x="984" y="424.23617891239735" font-size="16" class="sans" fill="#8e5bd8" font-weight="700" letter-spacing="0" text-anchor="start">Other</text>
-    <text x="1156" y="424.23617891239735" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">4.7%</text>
+    <path d="M560.224 287.2L966 208.0V269.7L560.224 290.5Z" fill="#e8423f" class="shimmer" style="animation-delay:-0.00s"/>
+    <path d="M560.224 290.5L966 269.7V323.6L560.224 293.4Z" fill="#f39c34" class="shimmer" style="animation-delay:-0.55s"/>
+    <path d="M560.224 293.4L966 323.6V353.5L560.224 295.1Z" fill="#f6d743" class="shimmer" style="animation-delay:-1.10s"/>
+    <path d="M560.224 295.1L966 353.5V377.6L560.224 296.4Z" fill="#4fc263" class="shimmer" style="animation-delay:-1.65s"/>
+    <path d="M560.224 296.4L966 377.6V399.6L560.224 297.6Z" fill="#3b8eea" class="shimmer" style="animation-delay:-2.20s"/>
+    <path d="M560.224 297.6L966 399.6V430.0L560.224 299.2Z" fill="#8e5bd8" class="shimmer" style="animation-delay:-2.75s"/>
+    <text x="984" y="243.87281455017182" font-size="16" class="sans" fill="#e8423f" font-weight="700" letter-spacing="0" text-anchor="start">Python</text>
+    <text x="1156" y="243.87281455017182" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">36%</text>
+    <text x="984" y="301.6703192525869" font-size="16" class="sans" fill="#f39c34" font-weight="700" letter-spacing="0" text-anchor="start">TypeScript</text>
+    <text x="1156" y="301.6703192525869" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">30%</text>
+    <text x="984" y="343.54346247943124" font-size="16" class="sans" fill="#f6d743" font-weight="700" letter-spacing="0" text-anchor="start">Jupyter</text>
+    <text x="1156" y="343.54346247943124" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">11%</text>
+    <text x="984" y="370.56224367505223" font-size="16" class="sans" fill="#4fc263" font-weight="700" letter-spacing="0" text-anchor="start">JavaScript</text>
+    <text x="1156" y="370.56224367505223" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">6.7%</text>
+    <text x="984" y="393.61058668095586" font-size="16" class="sans" fill="#3b8eea" font-weight="700" letter-spacing="0" text-anchor="start">HTML</text>
+    <text x="1156" y="393.61058668095586" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">5.0%</text>
+    <text x="984" y="419.7943007829198" font-size="16" class="sans" fill="#8e5bd8" font-weight="700" letter-spacing="0" text-anchor="start">Other</text>
+    <text x="1156" y="419.7943007829198" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">12%</text>
   </g>
   <g fill="none" stroke="#f0f6fc" stroke-linejoin="round" class="pulse">
     <path d="M488.8 178.0L340.0 418.0L637.6 418.0Z" stroke-width="18" stroke-opacity="0.12"/><path d="M488.8 178.0L340.0 418.0L637.6 418.0Z" stroke-width="12" stroke-opacity="0.18"/><path d="M488.8 178.0L340.0 418.0L637.6 418.0Z" stroke-width="7" stroke-opacity="0.3"/>
   </g>
   <path d="M488.8 178.0L340.0 418.0L637.6 418.0Z" fill="url(#p-glass)" stroke="#f0f6fc" stroke-width="2.2" stroke-linejoin="round"/>
   <circle cx="560.224" cy="293.2" r="3" fill="#ffffff" class="twinkle"/>
-<text x="16" y="498" font-size="12" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="1" text-anchor="start">8 public repos · measured in bytes · refreshed nightly</text>
+<text x="16" y="498" font-size="12" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="1" text-anchor="start">9 public repos · measured in bytes · refreshed nightly</text>
 <text x="1184" y="498" font-size="14" class="sans" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">A beam of code. A spectrum of languages.</text>
 </svg>
