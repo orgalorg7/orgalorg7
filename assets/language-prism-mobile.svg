@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="440" height="568" viewBox="0 0 440 568" role="img" aria-labelledby="title desc">
-<title id="title">The dark side of the code</title><desc id="desc">Languages by bytes across 9 public repositories: Python 35.9%, TypeScript 29.8%, Jupyter 11.2%, JavaScript 6.7%, HTML 5.0%, Other 11.5%.</desc>
+<title id="title">The dark side of the code</title><desc id="desc">Languages by bytes across 9 public repositories: Python 35.7%, TypeScript 29.6%, Jupyter 11.1%, JavaScript 6.9%, HTML 5.0%, Other 11.7%.</desc>
 <style>
   .sans{font-family:Arial,Helvetica,sans-serif}.mono{font-family:"Liberation Mono",Consolas,monospace}
   .ray-in{animation:ray-in 1s ease-out .2s forwards}
@@ -36,12 +36,12 @@
   <path d="M38.0 279.8L114.4 233.7" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 22" class="photons"/>
   <path d="M114.4 233.7L212.51135999999997 216.928V228.928Z" fill="#ffffff" opacity=".22" class="fade-late"/>
   <g clip-path="url(#p-fan)">
-    <path d="M212.51135999999997 216.9L406 168.4V207.9L212.51135999999997 220.3Z" fill="#e8423f" class="shimmer" style="animation-delay:-0.00s"/>
-    <path d="M212.51135999999997 220.3L406 207.9V242.4L212.51135999999997 223.2Z" fill="#f39c34" class="shimmer" style="animation-delay:-0.55s"/>
-    <path d="M212.51135999999997 223.2L406 242.4V261.5L212.51135999999997 224.8Z" fill="#f6d743" class="shimmer" style="animation-delay:-1.10s"/>
-    <path d="M212.51135999999997 224.8L406 261.5V277.0L212.51135999999997 226.1Z" fill="#4fc263" class="shimmer" style="animation-delay:-1.65s"/>
-    <path d="M212.51135999999997 226.1L406 277.0V291.0L212.51135999999997 227.3Z" fill="#3b8eea" class="shimmer" style="animation-delay:-2.20s"/>
-    <path d="M212.51135999999997 227.3L406 291.0V310.5L212.51135999999997 228.9Z" fill="#8e5bd8" class="shimmer" style="animation-delay:-2.75s"/>
+    <path d="M212.51135999999997 216.9L406 168.4V207.7L212.51135999999997 220.3Z" fill="#e8423f" class="shimmer" style="animation-delay:-0.00s"/>
+    <path d="M212.51135999999997 220.3L406 207.7V242.1L212.51135999999997 223.1Z" fill="#f39c34" class="shimmer" style="animation-delay:-0.55s"/>
+    <path d="M212.51135999999997 223.1L406 242.1V261.1L212.51135999999997 224.8Z" fill="#f6d743" class="shimmer" style="animation-delay:-1.10s"/>
+    <path d="M212.51135999999997 224.8L406 261.1V276.8L212.51135999999997 226.1Z" fill="#4fc263" class="shimmer" style="animation-delay:-1.65s"/>
+    <path d="M212.51135999999997 226.1L406 276.8V290.9L212.51135999999997 227.3Z" fill="#3b8eea" class="shimmer" style="animation-delay:-2.20s"/>
+    <path d="M212.51135999999997 227.3L406 290.9V310.5L212.51135999999997 228.9Z" fill="#8e5bd8" class="shimmer" style="animation-delay:-2.75s"/>
     
     
     
@@ -65,7 +65,7 @@
 <text x="424" y="426" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">11%</text>
 <rect x="16" y="443" width="12" height="12" rx="2" fill="#4fc263"/>
 <text x="38" y="454" font-size="16" class="sans" fill="#ede8dd" font-weight="700" letter-spacing="0" text-anchor="start">JavaScript</text>
-<text x="424" y="454" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">6.7%</text>
+<text x="424" y="454" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">6.9%</text>
 <rect x="16" y="471" width="12" height="12" rx="2" fill="#3b8eea"/>
 <text x="38" y="482" font-size="16" class="sans" fill="#ede8dd" font-weight="700" letter-spacing="0" text-anchor="start">HTML</text>
 <text x="424" y="482" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">5.0%</text>
