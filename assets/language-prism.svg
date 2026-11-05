@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="514" viewBox="0 0 1200 514" role="img" aria-labelledby="title desc">
-<title id="title">The dark side of the code</title><desc id="desc">Languages by bytes across 12 public repositories: TypeScript 46.1%, Python 24.9%, Jupyter 7.6%, Assembly 5.2%, JavaScript 4.9%, Other 11.3%.</desc>
+<title id="title">The dark side of the code</title><desc id="desc">Languages by bytes across 12 public repositories: TypeScript 48.9%, Python 23.0%, Jupyter 7.0%, JavaScript 5.0%, Assembly 4.8%, Other 11.4%.</desc>
 <style>
   .sans{font-family:Arial,Helvetica,sans-serif}.mono{font-family:"Liberation Mono",Consolas,monospace}
   .ray-in{animation:ray-in 1s ease-out .2s forwards}
@@ -36,24 +36,24 @@
   <path d="M52.0 382.0L407.0 310.0" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 22" class="photons"/>
   <path d="M407.0 310.0L560.224 287.2V299.2Z" fill="#ffffff" opacity=".22" class="fade-late"/>
   <g clip-path="url(#p-fan)">
-    <path d="M560.224 287.2L966 208.0V283.0L560.224 291.3Z" fill="#e8423f" class="shimmer" style="animation-delay:-0.00s"/>
-    <path d="M560.224 291.3L966 283.0V330.6L560.224 293.8Z" fill="#f39c34" class="shimmer" style="animation-delay:-0.55s"/>
-    <path d="M560.224 293.8L966 330.6V355.9L560.224 295.2Z" fill="#f6d743" class="shimmer" style="animation-delay:-1.10s"/>
-    <path d="M560.224 295.2L966 355.9V378.1L560.224 296.4Z" fill="#4fc263" class="shimmer" style="animation-delay:-1.65s"/>
-    <path d="M560.224 296.4L966 378.1V399.9L560.224 297.6Z" fill="#3b8eea" class="shimmer" style="animation-delay:-2.20s"/>
-    <path d="M560.224 297.6L966 399.9V430.0L560.224 299.2Z" fill="#8e5bd8" class="shimmer" style="animation-delay:-2.75s"/>
-    <text x="984" y="250.47503219646" font-size="16" class="sans" fill="#e8423f" font-weight="700" letter-spacing="0" text-anchor="start">TypeScript</text>
-    <text x="1156" y="250.47503219646" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">46%</text>
-    <text x="984" y="311.76170762887693" font-size="16" class="sans" fill="#f39c34" font-weight="700" letter-spacing="0" text-anchor="start">Python</text>
-    <text x="1156" y="311.76170762887693" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">25%</text>
-    <text x="984" y="348.2236030431653" font-size="16" class="sans" fill="#f6d743" font-weight="700" letter-spacing="0" text-anchor="start">Jupyter</text>
-    <text x="1156" y="348.2236030431653" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">7.6%</text>
-    <text x="984" y="371.96414066878646" font-size="16" class="sans" fill="#4fc263" font-weight="700" letter-spacing="0" text-anchor="start">Assembly</text>
-    <text x="1156" y="371.96414066878646" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">5.2%</text>
-    <text x="984" y="394.001006179349" font-size="16" class="sans" fill="#3b8eea" font-weight="700" letter-spacing="0" text-anchor="start">JavaScript</text>
-    <text x="1156" y="394.001006179349" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">4.9%</text>
-    <text x="984" y="419.9737931213109" font-size="16" class="sans" fill="#8e5bd8" font-weight="700" letter-spacing="0" text-anchor="start">Other</text>
-    <text x="1156" y="419.9737931213109" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">11%</text>
+    <path d="M560.224 287.2L966 208.0V286.5L560.224 291.4Z" fill="#e8423f" class="shimmer" style="animation-delay:-0.00s"/>
+    <path d="M560.224 291.4L966 286.5V331.6L560.224 293.9Z" fill="#f39c34" class="shimmer" style="animation-delay:-0.55s"/>
+    <path d="M560.224 293.9L966 331.6V356.2L560.224 295.2Z" fill="#f6d743" class="shimmer" style="animation-delay:-1.10s"/>
+    <path d="M560.224 295.2L966 356.2V378.1L560.224 296.4Z" fill="#4fc263" class="shimmer" style="animation-delay:-1.65s"/>
+    <path d="M560.224 296.4L966 378.1V399.8L560.224 297.6Z" fill="#3b8eea" class="shimmer" style="animation-delay:-2.20s"/>
+    <path d="M560.224 297.6L966 399.8V430.0L560.224 299.2Z" fill="#8e5bd8" class="shimmer" style="animation-delay:-2.75s"/>
+    <text x="984" y="252.23447741833212" font-size="16" class="sans" fill="#e8423f" font-weight="700" letter-spacing="0" text-anchor="start">TypeScript</text>
+    <text x="1156" y="252.23447741833212" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">49%</text>
+    <text x="984" y="314.0514597256765" font-size="16" class="sans" fill="#f39c34" font-weight="700" letter-spacing="0" text-anchor="start">Python</text>
+    <text x="1156" y="314.0514597256765" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">23%</text>
+    <text x="984" y="348.91028346169526" font-size="16" class="sans" fill="#f6d743" font-weight="700" letter-spacing="0" text-anchor="start">Jupyter</text>
+    <text x="1156" y="348.91028346169526" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">7.0%</text>
+    <text x="984" y="372.16495929492544" font-size="16" class="sans" fill="#4fc263" font-weight="700" letter-spacing="0" text-anchor="start">JavaScript</text>
+    <text x="1156" y="372.16495929492544" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">5.0%</text>
+    <text x="984" y="393.97919573610784" font-size="16" class="sans" fill="#3b8eea" font-weight="700" letter-spacing="0" text-anchor="start">Assembly</text>
+    <text x="1156" y="393.97919573610784" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">4.8%</text>
+    <text x="984" y="419.9075375955333" font-size="16" class="sans" fill="#8e5bd8" font-weight="700" letter-spacing="0" text-anchor="start">Other</text>
+    <text x="1156" y="419.9075375955333" font-size="14" class="mono" fill="#a4a39e" font-weight="400" letter-spacing="0" text-anchor="end">11%</text>
   </g>
   <g fill="none" stroke="#f0f6fc" stroke-linejoin="round" class="pulse">
     <path d="M488.8 178.0L340.0 418.0L637.6 418.0Z" stroke-width="18" stroke-opacity="0.12"/><path d="M488.8 178.0L340.0 418.0L637.6 418.0Z" stroke-width="12" stroke-opacity="0.18"/><path d="M488.8 178.0L340.0 418.0L637.6 418.0Z" stroke-width="7" stroke-opacity="0.3"/>
